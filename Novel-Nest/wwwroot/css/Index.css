@@ -20,5 +20,25 @@ html {
 body {
     margin: 0;
     padding: 0;
+    background: url(/images/Index/book-background.jpg) no-repeat center center fixed;
+    background-size: cover;
 }
 
+.container {
+    text-align: center;
+}
+
+.carousel-container {
+    opacity: 88%;
+    background: #e0c8a0;
+    padding: 8em;
+}
+
+.card-subtitle {
+    padding-bottom: 1em;
+}
+
+.img-carousel {
+    height: 20em;
+   
+}
