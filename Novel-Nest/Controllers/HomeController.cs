@@ -21,7 +21,7 @@ namespace Novel_Nest.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult LoginPage()
         {
             return View();
         }
