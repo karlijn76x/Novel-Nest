@@ -18,6 +18,8 @@
 </head>
 <body>
 	<title>Login</title>
+	<div class="container">
+		
 	<p class="title">Login with your account</p>
 	<form method="post" action="@Url.Action("Login", "Home")">
 		<div class="login-field">
@@ -31,7 +33,7 @@
 	</form>
 	<p class="title">Create your new account!</p>
 	<form>
-			<div>
+			<div class="create-field">
 				
 				<input type="text" placeholder="Fill in your emailadress" name="email" required />
 			
@@ -45,6 +47,7 @@
 			<button type="submit">Create Account</button>
 	</form>
 
-
+	</div>
 </body>
+<footer></footer>
 </html>

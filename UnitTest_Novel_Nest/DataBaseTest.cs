@@ -15,7 +15,7 @@ namespace UnitTest_Novel_Nest
 		public void DataBaseConnectionTestShouldReturnTrue()
 		{
 			//arrange
-			string connectionString = "Server=127.0.0.1;Database=Novel_Nest_Db;Uid=Root;";
+			string connectionString = "Server=127.0.0.1;Database=Novel_Nest_Db;Uid=root;";
 			MyDbContext dbContext = new MyDbContext(connectionString);
 
 			//act
@@ -23,7 +23,7 @@ namespace UnitTest_Novel_Nest
 			{
 				//assert
 				//Assert.IsNotNull(connection);
-				Assert.Equals(System.Data.ConnectionState.Open, connection.State);
+				Assert.AreEqual(System.Data.ConnectionState.Open, connection.State);
 			}
 		}
 	}
