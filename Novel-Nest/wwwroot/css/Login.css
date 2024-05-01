@@ -1,0 +1,49 @@
+﻿/* Algemene stijl */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0c8a0; /* Achtergrondkleur */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Achtergrondkleur container met een lichte transparantie */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Schaduw rondom container */
+
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    color: #4d2e00; /* Titelkleur */
+    padding-top: 12px;
+}
+
+/* Stijl voor invoervelden */
+.container input[type="text"],
+.container input[type="password"] {
+    width: calc(100% - 22px); /* Volledige breedte minus padding */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #e2d3bd; /* Randkleur */
+    border-radius: 5px;
+}
+
+/* Stijl voor knoppen */
+.container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4d2e00; /* Knopkleur */
+    color: #fff; /* Tekstkleur */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .container button:hover {
+        background-color: #6d4e20; /* Knopkleur bij hover */
+    }
