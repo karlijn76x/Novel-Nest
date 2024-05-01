@@ -13,4 +13,10 @@
     <PackageReference Include="xunit" Version="2.7.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Logic\Novel_Nest_Core.csproj" />
+	  <ProjectReference Include="C:\Users\karli\Documents\Semester 2\Novel-Nest\Data_Transfer_Object\Novel_Nest_DTO.csproj" />
+	  <ProjectReference Include="C:\Users\karli\Documents\Semester 2\Novel-Nest\Interfaces\Novel_Nest_Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

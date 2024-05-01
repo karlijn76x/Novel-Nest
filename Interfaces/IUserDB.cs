@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Novel_Nest_Core.Interfaces
+namespace Interfaces
 {
-    public interface IUserDB
-{
-}
+	public interface IUserDB
+	{
+		Task<bool> CreateUserAsync(UserModelDTO user);
+	}
 }

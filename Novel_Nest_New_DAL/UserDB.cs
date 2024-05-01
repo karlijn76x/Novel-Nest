@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySqlConnector;
-using Novel_Nest_DTO;
+using Interfaces;
+
 
 
 namespace Novel_Nest_DAL;
 
 public class UserDB : IUserDB
+
+
 {
 
     private readonly MyDbContext _DbContext;
@@ -19,7 +22,7 @@ public class UserDB : IUserDB
         _DbContext = dbContext;
     }
 
-    public async Task<bool> CreateUserAsync(UserModel user)
+    public async Task<bool> CreateUserAsync(UserModelDTO user)
     {
         try
         {

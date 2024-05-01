@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\Interfaces\Novel_Nest_Interfaces.csproj" />
+    <ProjectReference Include="..\Novel_Nest_New_DAL\Novel_Nest_DAL.csproj" />
+  </ItemGroup>
+
+</Project>
