@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Models;
 using Novel_Nest_DAL;
 
-namespace Novel_Nest_Core 
-{ 
+namespace Novel_Nest_Core
+{
 
 	public class CategoryLogic
 	{
@@ -27,5 +27,17 @@ namespace Novel_Nest_Core
 		{
 			return categoryRepository.GetCategories();
 		}
+
+		public async Task<bool> DeleteCategoryAsync(int Id)
+		{
+				return await categoryRepository.DeleteCategoryAsync(Id);
+
+		}
+
+		public async Task<bool> EditCategoryAsync(CategoryDTO category)
+		{
+			return await categoryRepository.EditCategoryAsync(category);
+		}
+
 	}
 }

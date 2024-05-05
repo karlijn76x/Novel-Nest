@@ -7,15 +7,37 @@ namespace Novel_Nest.Controllers
 {
 	public class BookshelfController : Controller
 	{
-		
-		public IActionResult Index()
+		private BookLogic _bookLogic;
+
+
+		public BookshelfController()
 		{
-			return View();
+			_bookLogic = new BookLogic();
+		}
+
+		public BookLogic Get_bookLogic()
+		{
+			return _bookLogic;
+		}
+
+		
+
+		public IActionResult Index( )
+		{
+			var books = _bookLogic.GetBooks(); 
+
+			var model = new BooksViewModel
+			{
+				Books = books
+			};
+			return View(model);
 		}
 
 		public IActionResult AddBooks()
 		{
 			return View();
 		}
+
+		
 	}
 }

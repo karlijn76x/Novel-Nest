@@ -9,7 +9,6 @@
 
 		public IConfiguration Configuration { get; }
 
-
 		public void ConfigureServices(IServiceCollection services)
 		{
 			string connectionString = Configuration.GetConnectionString("DefaultConnection");
