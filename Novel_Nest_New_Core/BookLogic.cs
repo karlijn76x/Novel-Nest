@@ -32,5 +32,10 @@ namespace Novel_Nest_Core
         {
             return bookRepository.GetBooks();
         }
+
+        public async Task<bool> DeleteBookAsync(int Id)
+        {
+            return await bookRepository.DeleteBookAsync(Id);
+        }
     }
 }

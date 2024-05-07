@@ -30,7 +30,7 @@ namespace Novel_Nest_Core
 
 		public async Task<bool> DeleteCategoryAsync(int Id)
 		{
-				return await categoryRepository.DeleteCategoryAsync(Id);
+			return await categoryRepository.DeleteCategoryAsync(Id);
 
 		}
 

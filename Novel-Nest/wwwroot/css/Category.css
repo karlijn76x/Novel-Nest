@@ -1,6 +1,6 @@
 ﻿body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5; /* achtergrondkleur */
+    background-color: #e0c8a0;
     color: #333; /* tekstkleur */
 }
 
@@ -22,6 +22,10 @@ h1 {
 
 .list-group-category {
     margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 40px;
+    padding: 20px;
 }
 
 .list-item {

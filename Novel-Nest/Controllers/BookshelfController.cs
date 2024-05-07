@@ -38,6 +38,10 @@ namespace Novel_Nest.Controllers
 			return View();
 		}
 
+		public IActionResult EditBook()
+		{
+			return View();
+		}
 		
 	}
 }

@@ -61,5 +61,35 @@ namespace Novel_Nest.Controllers
                 return View("AddCategory", book);
             }
         }
+        public IActionResult EditBook()
+        {
+            var categories = _bookLogic.GetCategories();
+            var books = _bookLogic.GetBooks();
+
+            var model = new EditBookViewModel
+            {
+                Categories = categories,
+                Books = books
+            };
+
+            
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteBook(int Id)
+        {
+            try
+            {
+                await _bookLogic.DeleteBookAsync(Id);
+                return RedirectToAction("EditBook");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Failed to delete" + ex.Message;
+                return View("ErrorView");
+            }
+        }
     }
 }

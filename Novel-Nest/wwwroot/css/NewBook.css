@@ -1,0 +1,32 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #e0c8a0;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+.btn {
+    background-color: #4d2e00; /* Knopkleur */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+    .btn:hover {
+        background-color: #6d4e1e; /* Knopkleur bij hover */
+    }
+
+.create-field input[type="text"] {
+    width: 250px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}

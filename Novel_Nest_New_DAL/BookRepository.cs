@@ -71,7 +71,7 @@ namespace Novel_Nest_DAL
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving categories: {ex.Message}");
-                return new List<CategoryDTO>(); // Lege lijst retourneren in geval van fout
+                return new List<CategoryDTO>(); 
             }
         }
 
@@ -107,9 +107,32 @@ namespace Novel_Nest_DAL
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving books: {ex.Message}");
-                return new List<BookDTO>(); // Return empty list in case of error
+                return new List<BookDTO>(); 
             }
         }
 
+        public async Task<bool> DeleteBookAsync(int Id)
+        {
+            try
+            {
+                using (var connection = _DbContext.OpenConnection())
+                {
+                    var query = "DELETE FROM book WHERE Id = @Id";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", Id);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting book: {ex.Message}");
+                return false;
+            }
+
+        }
     }
 }
