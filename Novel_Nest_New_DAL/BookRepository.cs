@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interfaces;
 using Models;
 using MySqlConnector;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Novel_Nest_DAL
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly MyDbContext _DbContext;
 
@@ -41,6 +43,7 @@ namespace Novel_Nest_DAL
                 return false;
             }
         }
+
         public List<CategoryDTO> GetCategories()
         {
             try
@@ -75,43 +78,48 @@ namespace Novel_Nest_DAL
             }
         }
 
-        public List<BookDTO> GetBooks()
-        {
-            try
-            {
-                var books = new List<BookDTO>();
+		public List<BookDTO> GetBooks()
+		{
+			try
+			{
+				var books = new List<BookDTO>();
 
-                using (var connection = _DbContext.OpenConnection())
-                {
-                    var query = "SELECT * FROM book";
-                    using (var command = new MySqlCommand(query, connection))
-                    {
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var book = new BookDTO
-                                {
-                                    Id = reader.GetInt32("Id"),
-                                    Title = reader.GetString("Title"),
-                                    Author = reader.GetString("Author"),
-                                    CategoryId = reader.GetInt32("CategoryId")
-                                };
-                                books.Add(book);
-                            }
-                        }
-                    }
-                }
-                return books;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error retrieving books: {ex.Message}");
-                return new List<BookDTO>(); 
-            }
-        }
+				using (var connection = _DbContext.OpenConnection())
+				{
+					var query = @"
+                SELECT b.*, c.Name AS CategoryName 
+                FROM book b 
+                JOIN category c ON b.CategoryId = c.Id";
+					using (var command = new MySqlCommand(query, connection))
+					{
+						using (var reader = command.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								var book = new BookDTO
+								{
+									Id = reader.GetInt32("Id"),
+									Title = reader.GetString("Title"),
+									Author = reader.GetString("Author"),
+									CategoryId = reader.GetInt32("CategoryId"),
+									CategoryName = reader.GetString("CategoryName")
+								};
+								books.Add(book);
+							}
+						}
+					}
+				}
+				return books;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error retrieving books: {ex.Message}");
+				return new List<BookDTO>();
+			}
+		}
 
-        public async Task<bool> DeleteBookAsync(int Id)
+
+		public async Task<bool> DeleteBookAsync(int Id)
         {
             try
             {
@@ -134,5 +142,63 @@ namespace Novel_Nest_DAL
             }
 
         }
-    }
+
+        public async Task<bool> EditBookAsync(BookDTO book)
+        {
+            try
+            {
+                using (var connection = _DbContext.OpenConnection())
+                {
+                    var query = "UPDATE book SET Title = @Title, Author = @Author, CategoryId = @CategoryId WHERE Id = @BookId";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Author", book.Author);
+                        command.Parameters.AddWithValue("@Title", book.Title);
+                        command.Parameters.AddWithValue("@categoryId", book.CategoryId);
+                        command.Parameters.AddWithValue("@BookId", book.Id);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating book: {ex.Message}");
+                return false;
+            }
+		}
+
+		public string GetCategoryName(int bookId)
+		{
+			try
+			{
+				using (var connection = _DbContext.OpenConnection())
+				{
+					var query = "SELECT b.*, c.Name AS CategoryName FROM book b JOIN Category c ON b.CategoryId = c.Id WHERE b.Id = @bookId";
+					using (var command = new MySqlCommand(query, connection))
+					{
+						command.Parameters.AddWithValue("@BookId", bookId);
+ 
+
+						using (var reader = command.ExecuteReader())
+						{
+							if (reader.Read())
+							{
+								return reader.GetString("CategoryName");
+							}
+						}
+					}
+				}
+				return string.Empty; 
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error retrieving category name: {ex.Message}");
+				return string.Empty;
+			}
+		}
+
+
+	}
 }

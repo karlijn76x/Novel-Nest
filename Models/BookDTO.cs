@@ -13,5 +13,8 @@ namespace Models
 		
 		public string Author {  get; set; } = string.Empty ;
 		public int CategoryId { get; set; }
+		public string CategoryName { get; set; } = string.Empty;
+
+	
 	}
 }

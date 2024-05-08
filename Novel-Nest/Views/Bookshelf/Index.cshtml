@@ -22,10 +22,10 @@
 	<div class="book-list">
 		@foreach (var book in Model.Books)
 		{
-			<div class="books">
-				<div class="book-title">@book.Title <br /> @book.Author</div>
-			</div>
 			
+			<div class="books">
+				<div class="book-title" >@book.Title <br /> @book.Author</div> </br> @book.CategoryName
+			</div>
 		}
 	</div>
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
@@ -22,11 +23,11 @@ namespace Novel_Nest_Core
         {
             bookRepository.AddBookAsync(book);
         }
+
         public List<CategoryDTO> GetCategories()
         {
             return bookRepository.GetCategories();
         }
-
 
         public List<BookDTO> GetBooks() 
         {
@@ -37,5 +38,16 @@ namespace Novel_Nest_Core
         {
             return await bookRepository.DeleteBookAsync(Id);
         }
-    }
+
+        public async Task<bool> EditBookAsync(BookDTO book)
+        {
+            return await bookRepository.EditBookAsync(book);
+        }
+
+		public string GetCategoryName(int bookId)
+        {
+            return bookRepository.GetCategoryName(bookId);
+        }
+
+	}
 }

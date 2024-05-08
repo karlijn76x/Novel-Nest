@@ -61,6 +61,8 @@ namespace Novel_Nest.Controllers
                 return View("AddCategory", book);
             }
         }
+
+        [HttpGet]
         public IActionResult EditBook()
         {
             var categories = _bookLogic.GetCategories();
@@ -72,7 +74,6 @@ namespace Novel_Nest.Controllers
                 Books = books
             };
 
-            
             return View(model);
         }
 
@@ -90,6 +91,21 @@ namespace Novel_Nest.Controllers
                 ViewBag.ErrorMessage = "Failed to delete" + ex.Message;
                 return View("ErrorView");
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditBook( BookDTO book)
+        {
+            try
+            {
+                await _bookLogic.EditBookAsync(book);
+                return RedirectToAction("EditBook");
+            }
+            catch(Exception ex)
+            {
+				ViewBag.ErrorMessage = "Failed to edit" + ex.Message;
+				return View("ErrorView");
+			}
         }
     }
 }
