@@ -1,12 +1,17 @@
-﻿@using Models
-@model BooksViewModel
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Models
+
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
-	
+
 	<link rel="stylesheet" type="" href="~/css/BookshelfIndex.css" />
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -14,21 +19,9 @@
 	<title>Novel Nest</title>
 </head>
 <body>
-	<h1>Hello, welcome to your library!</h1>
-	<p>Add new books, add categories</p>
-	<input class="btn" type="button" value="Create new category" onclick="location.href='@Url.Action("Category", "Category")'" />
-	<input class="btn" type="button" value="Add new book" onclick="location.href='@Url.Action("NewBook", "Book")'" />
-	<input class="btn" type="button" value="Edit books" onclick="location.href='@Url.Action("EditBook", "Book")'" />
-	<input class="btn" type="button" value="Go to Nightstand" onclick="location.href='@Url.Action("Index", "Nightstand")'" />
-	<div class="book-list">
-		@foreach (var book in Model.Books)
-		{
-			
-			<div class="books">
-				<div class="book-title" >@book.Title <br /> @book.Author</div>  @book.CategoryName
-			</div>
-		}
-	</div>
+	<h1>Hello, welcome to your nightstand!</h1>
+	<p>Add books you are currently reading, or give them reviews!</p>
+	<input class="btn" type="button" value="Add book" onclick="location.href='@Url.Action("AddBookToNightstand", "Nightstand")'" />
 
 </body>
 </html>

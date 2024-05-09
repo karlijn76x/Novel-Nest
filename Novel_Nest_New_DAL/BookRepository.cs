@@ -169,36 +169,6 @@ namespace Novel_Nest_DAL
             }
 		}
 
-		public string GetCategoryName(int bookId)
-		{
-			try
-			{
-				using (var connection = _DbContext.OpenConnection())
-				{
-					var query = "SELECT b.*, c.Name AS CategoryName FROM book b JOIN Category c ON b.CategoryId = c.Id WHERE b.Id = @bookId";
-					using (var command = new MySqlCommand(query, connection))
-					{
-						command.Parameters.AddWithValue("@BookId", bookId);
- 
-
-						using (var reader = command.ExecuteReader())
-						{
-							if (reader.Read())
-							{
-								return reader.GetString("CategoryName");
-							}
-						}
-					}
-				}
-				return string.Empty; 
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error retrieving category name: {ex.Message}");
-				return string.Empty;
-			}
-		}
-
 
 	}
 }

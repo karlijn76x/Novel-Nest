@@ -19,6 +19,6 @@ namespace Interfaces
 
 		public Task<bool> EditBookAsync(BookDTO book);
 
-		public string GetCategoryName(int bookId);
+	
 	}
 }

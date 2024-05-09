@@ -44,10 +44,6 @@ namespace Novel_Nest_Core
             return await bookRepository.EditBookAsync(book);
         }
 
-		public string GetCategoryName(int bookId)
-        {
-            return bookRepository.GetCategoryName(bookId);
-        }
-
+	
 	}
 }
