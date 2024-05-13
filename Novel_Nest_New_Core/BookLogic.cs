@@ -43,7 +43,16 @@ namespace Novel_Nest_Core
         {
             return await bookRepository.EditBookAsync(book);
         }
+		public async Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook)
+        {
+            return await bookRepository.AddBookToNightstandAsync(nightstandBook);
+        }
+		
 
-	
+		public List<NightstandBookDTO> GetNightstandBooks()
+		{
+			return bookRepository.GetNightstandBooks(); 
+		}
+
 	}
 }

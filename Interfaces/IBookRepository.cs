@@ -18,7 +18,9 @@ namespace Interfaces
 		public Task<bool> DeleteBookAsync(int Id);
 
 		public Task<bool> EditBookAsync(BookDTO book);
+		public Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook);
 
-	
+		public List<NightstandBookDTO> GetNightstandBooks();
+
 	}
 }

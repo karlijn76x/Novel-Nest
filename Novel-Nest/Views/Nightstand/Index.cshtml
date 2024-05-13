@@ -4,6 +4,7 @@
 @{
 }
 @using Models
+@model SpecifyBookDetailsViewModel
 
 <!doctype html>
 <html lang="en">
@@ -22,6 +23,14 @@
 	<h1>Hello, welcome to your nightstand!</h1>
 	<p>Add books you are currently reading, or give them reviews!</p>
 	<input class="btn" type="button" value="Add book" onclick="location.href='@Url.Action("AddBookToNightstand", "Nightstand")'" />
-
+		<div class="book-list">
+			@foreach (var nightstandBook in Model.NightstandBooks)
+			{
+				<div class="books">
+					<div class="book-title">@nightstandBook.Title <br /> @nightstandBook.Author</div>
+					<p>Started at: @nightstandBook.DateStarted</p>
+				</div>
+			}
+		</div>
 </body>
 </html>

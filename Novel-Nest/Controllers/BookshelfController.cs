@@ -9,7 +9,6 @@ namespace Novel_Nest.Controllers
 	{
 		private BookLogic _bookLogic;
 
-
 		public BookshelfController()
 		{
 			_bookLogic = new BookLogic();
@@ -19,8 +18,6 @@ namespace Novel_Nest.Controllers
 		{
 			return _bookLogic;
 		}
-
-		
 
 		public IActionResult Index( )
 		{
