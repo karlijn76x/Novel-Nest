@@ -1,32 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@using Models
-@model SpecifyBookDetailsViewModel
+﻿@model SpecifyBookDetailsViewModel
+
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-
-	<title>Novel Nest</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link rel="stylesheet" type="" href="~/css/AddBookToNightstand.css" />
+    <title>Novel Nest</title>
 </head>
 <body>
-	<h1>Choose a book to add to your nightstand!</h1>
-	<p>When you add a book to your nightstand, you can pick a starting date, when you finish a book you can set a date as well.</p>
-	@foreach (var book in Model.Books)
-	{
-		<div class="books">
-			<form method ="post" action="@Url.Action("AddBookToNightstand", "Nightstand")">
-				<div class="book-title">@book.Title <br /> @book.Author</div>  @book.CategoryName
-			 
-				<input type="hidden" name="BookId" value="@book.Id" />
-				<input type="date" name="DateStarted" id="DateStarted" />
-				<input class="btn" type="submit" value="Choose" />
-			</form>
-		</div>
-	}
+    <h1>Choose a book to add to your nightstand!</h1>
+    <p>When you add a book to your nightstand, you can pick a starting date, when you finish a book you can set a date as well.</p>
+    @foreach (var book in Model.Books)
+    {
+        <div class="books">
+            <form method="post" action="@Url.Action("AddBookToNightstand", "Nightstand")">
+                <div class="book-title">@book.Title <br /> @book.Author</div> @book.CategoryName
+                <input type="hidden" name="BookId" value="@book.Id" />
+                <input type="date" name="DateStarted" id="DateStarted" />
+                <input class="btn" type="submit" value="Choose" />
+            </form>
+        </div>
+    }
 </body>
 </html>

@@ -49,4 +49,10 @@ namespace Novel_Nest.Controllers
 		}
 
 	}
+
+	//[HttpGet]
+	//public async Task<IActionResult> Login()
+	//{
+	//	return RedirectToAction("Index", "Bookshelf");
+	//}
 }

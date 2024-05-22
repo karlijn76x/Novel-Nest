@@ -193,49 +193,72 @@ namespace Novel_Nest_DAL
 			}
 		}
 
+        public List<NightstandBookDTO> GetNightstandBooks()
+        {
+            try
+            {
+                var nightstandBooks = new List<NightstandBookDTO>();
 
-		public List<NightstandBookDTO> GetNightstandBooks()
+                using (var connection = _DbContext.OpenConnection())
+                {
+                    var query = @"
+            SELECT nb.Id, nb.BookId, b.Title, b.Author, nb.DateStarted
+            FROM nightstandbook nb
+            JOIN book b ON b.Id = nb.BookId";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var nightstandBook = new NightstandBookDTO
+                                {
+                                    Id = reader.GetInt32("Id"),
+                                    BookId = reader.GetInt32("BookId"), // Ensure BookId is read from the database
+                                    Title = reader.GetString("Title"),
+                                    Author = reader.GetString("Author"),
+                                    DateStarted = reader.GetDateTime("DateStarted")
+                                };
+                                nightstandBooks.Add(nightstandBook);
+                            }
+                        }
+                    }
+                }
+
+                return nightstandBooks;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving nightstand books: {ex.Message}");
+                return new List<NightstandBookDTO>();
+            }
+        }
+
+
+
+        public async Task<bool> DeleteNightstandBookAsync(int Id)
 		{
 			try
 			{
-				var nightstandBooks = new List<NightstandBookDTO>();
-
 				using (var connection = _DbContext.OpenConnection())
 				{
-					var query = @"
-				 SELECT nb.Id, b.Title, b.Author, nb.DateStarted
-					FROM nightstandbook nb
-					JOIN book b ON b.Id = nb.BookId";
-
+					var query = "DELETE FROM nightstandbook WHERE Id = @Id";
 					using (var command = new MySqlCommand(query, connection))
 					{
-						using (var reader = command.ExecuteReader())
-						{
-							while (reader.Read())
-							{
-								var nightstandBook = new NightstandBookDTO
-								{
-									Id = reader.GetInt32("Id"),
-									Title = reader.GetString("Title"),
-									Author = reader.GetString("Author"),
-									DateStarted = reader.GetDateTime("DateStarted")
-								};
-								nightstandBooks.Add(nightstandBook);
-							}
-						}
+						command.Parameters.AddWithValue("@Id", Id);
+
+						await command.ExecuteNonQueryAsync();
 					}
 				}
-
-				return nightstandBooks;
+				return true;
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine($"Error retrieving nightstand books: {ex.Message}");
-				return new List<NightstandBookDTO>();
+				Console.WriteLine($"Error deleting book: {ex.Message}");
+				return false;
 			}
+
 		}
-
-
-
 	}
 }

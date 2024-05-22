@@ -22,5 +22,7 @@ namespace Interfaces
 
 		public List<NightstandBookDTO> GetNightstandBooks();
 
+		public Task<bool> DeleteNightstandBookAsync(int bookId);
+
 	}
 }

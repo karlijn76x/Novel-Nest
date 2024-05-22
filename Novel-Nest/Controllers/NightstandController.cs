@@ -24,19 +24,25 @@ namespace Novel_Nest.Controllers
 			return View(model);
 		}
 
-		[HttpGet]
-		public IActionResult AddBookToNightstand()
-		{
-			var books = _bookLogic.GetBooks();
 
-			var model = new SpecifyBookDetailsViewModel
-			{
-				Books = books
-			};
-			return View(model);
-		}
+        [HttpGet]
+        public IActionResult AddBookToNightstand()
+        {
+            var books = _bookLogic.GetBooks();
+            var nightstandBooks = _bookLogic.GetNightstandBooks();
 
-		[HttpPost]
+            var availableBooks = books.Where(book => !nightstandBooks.Any(nb => nb.BookId == book.Id)).ToList();
+
+            var model = new SpecifyBookDetailsViewModel
+            {
+                Books = availableBooks,
+                NightstandBooks = nightstandBooks
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> AddBookToNightstand(NightstandBookDTO nightstandBook)
 		{
 			if (ModelState.IsValid)
@@ -60,8 +66,25 @@ namespace Novel_Nest.Controllers
 			}
 		}
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteBook(int Id)
+        {
+            Console.WriteLine($"Attempting to delete book with Id: {Id}");
+            bool success = await _bookLogic.DeleteNightstandBookAsync(Id);
+            if (success)
+            {
+                return RedirectToAction("Index", "Nightstand");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Failed to remove book from nightstand. Please try again.";
+                return View("ErrorView");
+            }
+        }
 
-	}
+
+
+    }
 
 }
 
