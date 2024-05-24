@@ -24,7 +24,6 @@ namespace Novel_Nest.Controllers
 			return View(model);
 		}
 
-
         [HttpGet]
         public IActionResult AddBookToNightstand()
         {
@@ -81,10 +80,6 @@ namespace Novel_Nest.Controllers
                 return View("ErrorView");
             }
         }
-
-
-
     }
-
 }
 

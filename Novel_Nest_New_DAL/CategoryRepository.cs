@@ -13,7 +13,6 @@ namespace Novel_Nest_DAL
 	public class CategoryRepository : ICategoryRepository
 	{
 		private readonly MyDbContext _DbContext;
-
 		public CategoryRepository(MyDbContext dbContext)
 		{
 			_DbContext = dbContext;
@@ -40,7 +39,6 @@ namespace Novel_Nest_DAL
 				return false;
 			}
 		}
-
 		public List<CategoryDTO> GetCategories()
 		{
 			try
@@ -74,7 +72,6 @@ namespace Novel_Nest_DAL
 				return new List<CategoryDTO>(); // Lege lijst retourneren in geval van fout
 			}
 		}
-
 		public async Task<bool> DeleteCategoryAsync(int Id)
 		{
 			try
@@ -96,7 +93,6 @@ namespace Novel_Nest_DAL
 				return false;
 			}
 		}
-
 		public async Task<bool> EditCategoryAsync(CategoryDTO category)
 		{
 			try
@@ -120,8 +116,6 @@ namespace Novel_Nest_DAL
 				return false;
 			}
 		}
-
-		
 	}
 }
 

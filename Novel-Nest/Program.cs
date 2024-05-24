@@ -1,10 +1,20 @@
+using Novel_Nest_DAL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
+//DI
+//new BookRepository(new MyDbContext("Server=127.0.0.1;Database=Novel_Nest_Db;Uid=root;"))
+//builder.Services.AddScoped(IBoo)
+// Configure session state
+builder.Services.AddSession(options =>
+{
+    // Configure session options if needed
+});
 
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -21,6 +31,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+// Enable session middleware
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

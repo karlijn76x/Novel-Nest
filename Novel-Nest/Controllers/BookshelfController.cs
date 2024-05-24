@@ -13,12 +13,10 @@ namespace Novel_Nest.Controllers
 		{
 			_bookLogic = new BookLogic();
 		}
-
 		public BookLogic Get_bookLogic()
 		{
 			return _bookLogic;
 		}
-
 		public IActionResult Index( )
 		{
 			var books = _bookLogic.GetBooks(); 
@@ -29,12 +27,10 @@ namespace Novel_Nest.Controllers
 			};
 			return View(model);
 		}
-
 		public IActionResult AddBooks()
 		{
 			return View();
 		}
-
 		public IActionResult EditBook()
 		{
 			return View();

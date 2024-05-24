@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Interfaces;
+﻿using Interfaces;
 using Models;
 using Novel_Nest_DAL;
 
@@ -12,11 +6,11 @@ namespace Novel_Nest_Core
 {
     public class BookLogic
     {
-        private BookRepository bookRepository;
+        private IBookRepository bookRepository;
 
-        public BookLogic() 
+        public BookLogic(IBookRepository bookRepository) 
         {
-            bookRepository = new BookRepository(new MyDbContext("Server=127.0.0.1;Database=Novel_Nest_Db;Uid=root;"));
+            this.bookRepository = bookRepository;
         }
 
         public void AddBookAsync(BookDTO book)

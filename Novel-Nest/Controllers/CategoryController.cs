@@ -13,13 +13,13 @@ namespace Novel_Nest.Controllers
 		{
 			_categoryLogic = new CategoryLogic();
 		}
+
 		[HttpPost]
 		public async Task<IActionResult> AddCategory(CategoryDTO category)
 		{
 
 			if (ModelState.IsValid)
 			{
-
 				bool success = true;
 
 				if (success)
@@ -76,8 +76,6 @@ namespace Novel_Nest.Controllers
 				return View("ErrorView");
 			}
 		}
-
-		
 		public async Task<IActionResult> EditCategoryAsync(CategoryDTO category)
 		{
 			try

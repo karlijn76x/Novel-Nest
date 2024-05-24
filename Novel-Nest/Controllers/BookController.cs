@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Models;
 using Novel_Nest.Models;
 using Novel_Nest_Core;
+using Novel_Nest_DAL;
 
 namespace Novel_Nest.Controllers
 {
 	public class BookController : Controller
 	{
         private BookLogic _bookLogic;
-       
 
-        public BookController()
+        public BookController(IBookRepository bookRepository)
         {
-            _bookLogic = new BookLogic(); 
-            
+            _bookLogic = new BookLogic(bookRepository);
         }
 
         public IActionResult NewBook()

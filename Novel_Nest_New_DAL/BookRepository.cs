@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Interfaces;
+﻿using Interfaces;
 using Models;
 using MySqlConnector;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Novel_Nest_DAL
 {
-	public class BookRepository : IBookRepository
+    public class BookRepository : IBookRepository
 	{
 		private readonly MyDbContext _DbContext;
 
@@ -118,7 +112,6 @@ namespace Novel_Nest_DAL
 			}
 		}
 
-
 		public async Task<bool> DeleteBookAsync(int Id)
 		{
 			try
@@ -215,7 +208,7 @@ namespace Novel_Nest_DAL
                                 var nightstandBook = new NightstandBookDTO
                                 {
                                     Id = reader.GetInt32("Id"),
-                                    BookId = reader.GetInt32("BookId"), // Ensure BookId is read from the database
+                                    BookId = reader.GetInt32("BookId"), 
                                     Title = reader.GetString("Title"),
                                     Author = reader.GetString("Author"),
                                     DateStarted = reader.GetDateTime("DateStarted")
