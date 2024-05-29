@@ -1,13 +1,17 @@
 using Novel_Nest_DAL;
+using Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Console;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var configuration = builder.Configuration;
 
-//DI
-//new BookRepository(new MyDbContext("Server=127.0.0.1;Database=Novel_Nest_Db;Uid=root;"))
-//builder.Services.AddScoped(IBoo)
+string ConnectionString = configuration.GetConnectionString("ConnectionString");
+
+builder.Services.AddSingleton<IBookRepository>(new BookRepository(ConnectionString));
 // Configure session state
 builder.Services.AddSession(options =>
 {

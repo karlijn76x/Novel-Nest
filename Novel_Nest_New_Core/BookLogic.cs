@@ -15,41 +15,41 @@ namespace Novel_Nest_Core
 
         public void AddBookAsync(BookDTO book)
         {
-            bookRepository.AddBookAsync(book);
+            this.bookRepository.AddBookAsync(book);
         }
 
         public List<CategoryDTO> GetCategories()
         {
-            return bookRepository.GetCategories();
+            return this.bookRepository.GetCategories();
         }
 
         public List<BookDTO> GetBooks() 
         {
-            return bookRepository.GetBooks();
+            return this.bookRepository.GetBooks();
         }
 
         public async Task<bool> DeleteBookAsync(int Id)
         {
-            return await bookRepository.DeleteBookAsync(Id);
+            return await this.bookRepository.DeleteBookAsync(Id);
         }
 
         public async Task<bool> EditBookAsync(BookDTO book)
         {
-            return await bookRepository.EditBookAsync(book);
+            return await this.bookRepository.EditBookAsync(book);
         }
 		public async Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook)
         {
-            return await bookRepository.AddBookToNightstandAsync(nightstandBook);
+            return await this.bookRepository.AddBookToNightstandAsync(nightstandBook);
         }
 		
 
 		public List<NightstandBookDTO> GetNightstandBooks()
 		{
-			return bookRepository.GetNightstandBooks(); 
+			return this.bookRepository.GetNightstandBooks(); 
 		}
         public async Task<bool> DeleteNightstandBookAsync(int Id)
         {
-            return await bookRepository.DeleteNightstandBookAsync(Id);
+            return await this.bookRepository.DeleteNightstandBookAsync(Id);
         }
 
 

@@ -6,18 +6,18 @@ namespace Novel_Nest_DAL
 {
     public class BookRepository : IBookRepository
 	{
-		private readonly MyDbContext _DbContext;
+		private readonly string connectionString;
 
-		public BookRepository(MyDbContext dbContext)
+		public BookRepository(string _connectionString)
 		{
-			_DbContext = dbContext;
+			this.connectionString = _connectionString;	
 		}
 
 		public async Task<bool> AddBookAsync(BookDTO book)
 		{
 			try
 			{
-				using (var connection = _DbContext.OpenConnection())
+				using (MySqlConnection connection = new(connectionString))
 				{
 					var query = "INSERT INTO book (Title, Author, CategoryId) VALUES (@Title, @Author, @CategoryId)";
 					using (var command = new MySqlCommand(query, connection))
@@ -44,7 +44,7 @@ namespace Novel_Nest_DAL
 			{
 				var categories = new List<CategoryDTO>();
 
-				using (var connection = _DbContext.OpenConnection())
+				using (MySqlConnection connection = new(connectionString))
 				{
 					var query = "SELECT * FROM category";
 					using (var command = new MySqlCommand(query, connection))
@@ -78,7 +78,7 @@ namespace Novel_Nest_DAL
 			{
 				var books = new List<BookDTO>();
 
-				using (var connection = _DbContext.OpenConnection())
+				using (MySqlConnection connection = new(connectionString))
 				{
 					var query = @"
                 SELECT b.*, c.Name AS CategoryName 
@@ -116,7 +116,7 @@ namespace Novel_Nest_DAL
 		{
 			try
 			{
-				using (var connection = _DbContext.OpenConnection())
+				using (MySqlConnection connection = new(connectionString))
 				{
 					var query = "DELETE FROM book WHERE Id = @Id";
 					using (var command = new MySqlCommand(query, connection))
@@ -140,7 +140,7 @@ namespace Novel_Nest_DAL
 		{
 			try
 			{
-				using (var connection = _DbContext.OpenConnection())
+				using (MySqlConnection connection = new(connectionString))
 				{
 					var query = "UPDATE book SET Title = @Title, Author = @Author, CategoryId = @CategoryId WHERE Id = @BookId";
 					using (var command = new MySqlCommand(query, connection))
@@ -166,7 +166,7 @@ namespace Novel_Nest_DAL
 		{
 			try
 			{
-				using (var connection = _DbContext.OpenConnection())
+				using (MySqlConnection connection = new(connectionString))
 				{
 					var query = "INSERT INTO nightstandbook (BookId, DateStarted) VALUES (@BookId, @DateStarted) ";
 					using (var command = new MySqlCommand(query, connection))
@@ -192,7 +192,7 @@ namespace Novel_Nest_DAL
             {
                 var nightstandBooks = new List<NightstandBookDTO>();
 
-                using (var connection = _DbContext.OpenConnection())
+                using (MySqlConnection connection = new(connectionString))
                 {
                     var query = @"
             SELECT nb.Id, nb.BookId, b.Title, b.Author, nb.DateStarted
@@ -234,7 +234,7 @@ namespace Novel_Nest_DAL
 		{
 			try
 			{
-				using (var connection = _DbContext.OpenConnection())
+				using (MySqlConnection connection = new(connectionString))
 				{
 					var query = "DELETE FROM nightstandbook WHERE Id = @Id";
 					using (var command = new MySqlCommand(query, connection))

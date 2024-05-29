@@ -2,23 +2,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Novel_Nest.Models;
-using Novel_Nest_Core;
 using Novel_Nest_DAL;
 
 namespace Novel_Nest.Controllers
 {
 	public class BookController : Controller
 	{
-        private BookLogic _bookLogic;
+        private IBookRepository _bookRepository;
 
         public BookController(IBookRepository bookRepository)
         {
-            _bookLogic = new BookLogic(bookRepository);
+            _bookRepository = bookRepository;
         }
 
         public IActionResult NewBook()
 		{
-            var categories = _bookLogic.GetCategories(); 
+            var categories = _bookRepository.GetCategories(); 
 
             var model = new CategoryViewModel
             {
@@ -41,9 +40,9 @@ namespace Novel_Nest.Controllers
 
                     Console.WriteLine("success");
 
-                    _bookLogic = new BookLogic();
+                    _bookRepository = new BookLogic();
 
-                    _bookLogic.AddBookAsync(book);
+                    _bookRepository.AddBookAsync(book);
 
                     return RedirectToAction("Index", "Bookshelf");
                 }
@@ -65,8 +64,8 @@ namespace Novel_Nest.Controllers
         [HttpGet]
         public IActionResult EditBook()
         {
-            var categories = _bookLogic.GetCategories();
-            var books = _bookLogic.GetBooks();
+            var categories = _bookRepository.GetCategories();
+            var books = _bookRepository.GetBooks();
 
             var model = new EditBookViewModel
             {
@@ -83,7 +82,7 @@ namespace Novel_Nest.Controllers
         {
             try
             {
-                await _bookLogic.DeleteBookAsync(Id);
+                await _bookRepository.DeleteBookAsync(Id);
                 return RedirectToAction("EditBook");
             }
             catch (Exception ex)
@@ -98,7 +97,7 @@ namespace Novel_Nest.Controllers
         {
             try
             {
-                await _bookLogic.EditBookAsync(book);
+                await _bookRepository.EditBookAsync(book);
                 return RedirectToAction("EditBook");
             }
             catch(Exception ex)
