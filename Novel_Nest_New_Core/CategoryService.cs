@@ -9,11 +9,11 @@ using Novel_Nest_DAL;
 namespace Novel_Nest_Core
 {
 
-	public class CategoryLogic
+	public class CategoryService
 	{
 		private CategoryRepository categoryRepository;
 
-		public CategoryLogic()
+		public CategoryService()
 		{
 			categoryRepository = new CategoryRepository(new MyDbContext("Server=127.0.0.1;Database=Novel_Nest_Db;Uid=root;"));
 		}

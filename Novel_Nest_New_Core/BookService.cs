@@ -4,11 +4,11 @@ using Novel_Nest_DAL;
 
 namespace Novel_Nest_Core
 {
-    public class BookLogic
+    public class BookService
     {
         private IBookRepository bookRepository;
 
-        public BookLogic(IBookRepository bookRepository) 
+        public BookService(IBookRepository bookRepository) 
         {
             this.bookRepository = bookRepository;
         }

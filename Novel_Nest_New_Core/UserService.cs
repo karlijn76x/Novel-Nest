@@ -8,11 +8,11 @@ using Novel_Nest_DAL;
 
 namespace Novel_Nest_Core
 {
-    public class UserLogic
+    public class UserService
     {
         private UserDB userDB;
 
-        public UserLogic()
+        public UserService()
         {
             userDB = new UserDB(new MyDbContext("Server=127.0.0.1;Database=Novel_Nest_Db;Uid=root;"));
         }
