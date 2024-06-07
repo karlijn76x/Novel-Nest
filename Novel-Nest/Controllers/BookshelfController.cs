@@ -5,36 +5,34 @@ using Novel_Nest.Models;
 
 namespace Novel_Nest.Controllers
 {
-	public class BookshelfController : Controller
-	{
-		private BookLogic _bookLogic;
+    public class BookshelfController : Controller
+    {
+        private readonly BookService _bookService;
 
-		public BookshelfController()
-		{
-			_bookLogic = new BookLogic();
-		}
-		public BookLogic Get_bookLogic()
-		{
-			return _bookLogic;
-		}
-		public IActionResult Index( )
-		{
-			var books = _bookLogic.GetBooks(); 
+        public BookshelfController(BookService bookService)
+        {
+            _bookService = bookService;
+        }
 
-			var model = new BooksViewModel
-			{
-				Books = books
-			};
-			return View(model);
-		}
-		public IActionResult AddBooks()
-		{
-			return View();
-		}
-		public IActionResult EditBook()
-		{
-			return View();
-		}
-		
-	}
+        public IActionResult Index()
+        {
+            var books = _bookService.GetBooks();
+
+            var model = new BooksViewModel
+            {
+                Books = books
+            };
+            return View(model);
+        }
+
+        public IActionResult AddBooks()
+        {
+            return View();
+        }
+
+        public IActionResult EditBook()
+        {
+            return View();
+        }
+    }
 }

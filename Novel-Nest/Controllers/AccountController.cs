@@ -1,26 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
-using Novel_Nest_Core;
-using System;
 using Microsoft.AspNetCore.Http;
+using Novel_Nest_Core;
 using Novel_Nest.Models;
-using System.Transactions;
-using Novel_Nest_DAL;
-
-
+using System.Threading.Tasks;
 
 namespace Novel_Nest.Controllers
 {
-	public class AccountController : Controller
-	{
+    public class AccountController : Controller
+    {
+        private readonly UserService _userService;
 
-		private UserLogic _userLogic;
+        public AccountController(UserService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
-			
-            var (isAuthenticated, Name, Id) = await _userLogic.AuthenticateUser(email, password);
+            var (isAuthenticated, Name, Id) = await _userService.AuthenticateUserAsync(email, password);
 
             if (isAuthenticated)
             {
@@ -30,42 +28,33 @@ namespace Novel_Nest.Controllers
             }
             else
             {
+                Console.WriteLine("Invalid login attempt for email: " + email);
                 ViewBag.ErrorMessage = "Invalid login attempt.";
-                return View();
+                return RedirectToAction("LoginPage", "Home");
             }
         }
 
         [HttpPost]
-		public async Task<IActionResult> CreateAccount(UserModelDTO userModel)
-		{
-			if (ModelState.IsValid)
-			{
+        public async Task<IActionResult> CreateAccount(UserModelDTO userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool success = await _userService.CreateUserAsync(userModel);
 
-				bool success = true;
-
-				if (success)
-				{
-					Console.WriteLine("success");
-
-					_userLogic = new UserLogic();
-					_userLogic.CreateUser(userModel);
-					return RedirectToAction("Index", "Bookshelf");
-				}
-				else
-				{
-					Console.WriteLine("failed");
-
-
-					ViewBag.ErrorMessage = "Failed to create account. Please try again.";
-					return View("ErrorView", userModel); 
-				}
-			}
-			else
-			{
-				Console.WriteLine("failed 2");
-				return View("CreateAccount", userModel);
-			}
-		}
-
-	}
+                if (success)
+                {
+                    return RedirectToAction("Index", "Bookshelf");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Failed to create account. Please try again.";
+                    return View("ErrorView", userModel);
+                }
+            }
+            else
+            {
+                return View("CreateAccount", userModel);
+            }
+        }
+    }
 }

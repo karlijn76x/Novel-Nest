@@ -1,30 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Novel_Nest_DAL;
-
+﻿
+using Interfaces;
 
 namespace Novel_Nest_Core
 {
     public class UserService
     {
-        private UserDB userDB;
+        private readonly IUserDB _userDB;
 
-        public UserService()
+        public UserService(IUserDB userDB)
         {
-            userDB = new UserDB(new MyDbContext("Server=127.0.0.1;Database=Novel_Nest_Db;Uid=root;"));
+            _userDB = userDB;
+        }
+        public async Task<(bool isAuthenticated, string Name, int Id)> AuthenticateUserAsync(string email, string password)
+        {
+            return await _userDB.AuthenticateUserAsync(email, password);
         }
 
-        public async Task<(bool isAuthenticated, string Name, int Id)> AuthenticateUser(string email, string password)
+        public async Task<bool> CreateUserAsync(UserModelDTO user)
         {
-            return await userDB.AuthenticateUser(email, password);
-        }
-
-        public void CreateUser(UserModelDTO user)
-        {
-            userDB.CreateUserAsync(user);
+            return await _userDB.CreateUserAsync(user);
         }
     }
 }

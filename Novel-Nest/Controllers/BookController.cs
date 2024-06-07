@@ -2,54 +2,45 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Novel_Nest.Models;
-using Novel_Nest_DAL;
+using Novel_Nest_Core;
+using System.Threading.Tasks;
 
 namespace Novel_Nest.Controllers
 {
-	public class BookController : Controller
-	{
-        private IBookRepository _bookRepository;
+    public class BookController : Controller
+    {
+        private readonly BookService _bookService;
 
-        public BookController(IBookRepository bookRepository)
+        public BookController(BookService bookService)
         {
-            _bookRepository = bookRepository;
+            _bookService = bookService;
         }
 
         public IActionResult NewBook()
-		{
-            var categories = _bookRepository.GetCategories(); 
+        {
+            var categories = _bookService.GetCategories();
 
             var model = new CategoryViewModel
             {
-                Categories = categories 
+                Categories = categories
             };
             return View(model);
-		}
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddBook(BookDTO book)
         {
-
             if (ModelState.IsValid)
             {
-
-                bool success = true;
-
+                bool success = await _bookService.AddBookAsync(book);
                 if (success)
                 {
-
                     Console.WriteLine("success");
-
-                    _bookRepository = new BookLogic();
-
-                    _bookRepository.AddBookAsync(book);
-
                     return RedirectToAction("Index", "Bookshelf");
                 }
                 else
                 {
                     Console.WriteLine("failed");
-
                     ViewBag.ErrorMessage = "Failed to create account. Please try again.";
                     return View("ErrorView", book);
                 }
@@ -64,8 +55,8 @@ namespace Novel_Nest.Controllers
         [HttpGet]
         public IActionResult EditBook()
         {
-            var categories = _bookRepository.GetCategories();
-            var books = _bookRepository.GetBooks();
+            var categories = _bookService.GetCategories();
+            var books = _bookService.GetBooks();
 
             var model = new EditBookViewModel
             {
@@ -76,35 +67,34 @@ namespace Novel_Nest.Controllers
             return View(model);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> DeleteBook(int Id)
         {
             try
             {
-                await _bookRepository.DeleteBookAsync(Id);
+                await _bookService.DeleteBookAsync(Id);
                 return RedirectToAction("EditBook");
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorMessage = "Failed to delete" + ex.Message;
+                ViewBag.ErrorMessage = "Failed to delete: " + ex.Message;
                 return View("ErrorView");
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditBook( BookDTO book)
+        public async Task<IActionResult> EditBook(BookDTO book)
         {
             try
             {
-                await _bookRepository.EditBookAsync(book);
+                await _bookService.EditBookAsync(book);
                 return RedirectToAction("EditBook");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-				ViewBag.ErrorMessage = "Failed to edit" + ex.Message;
-				return View("ErrorView");
-			}
+                ViewBag.ErrorMessage = "Failed to edit: " + ex.Message;
+                return View("ErrorView");
+            }
         }
     }
 }

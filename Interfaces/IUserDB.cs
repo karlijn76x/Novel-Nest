@@ -9,7 +9,7 @@ namespace Interfaces
 	public interface IUserDB
 	{
 		Task<bool> CreateUserAsync(UserModelDTO user);
-		Task<(bool isAuthenticated, string Name, int Id)> AuthenticateUser(string email, string password);
+		Task<(bool isAuthenticated, string Name, int Id)> AuthenticateUserAsync(string email, string password);
 
     }
 }

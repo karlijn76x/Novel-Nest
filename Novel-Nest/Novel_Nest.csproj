@@ -12,7 +12,7 @@
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.0-preview.3.24172.13" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.0-preview.4.24267.6" />
     <PackageReference Include="MySqlConnector" Version="2.3.7" />
     <PackageReference Include="xunit" Version="2.7.1" />
   </ItemGroup>
@@ -20,7 +20,7 @@
   <ItemGroup>
 	  <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
 	  <ProjectReference Include="..\Models\Models.csproj" />
-	  <ProjectReference Include="..\Novel_Nest_New_DAL\Novel_Nest_DAL.csproj" />
+	  <ProjectReference Include="..\Novel_Nest_New_Core\Novel_Nest_Core.csproj" />
   </ItemGroup>
 
 </Project>

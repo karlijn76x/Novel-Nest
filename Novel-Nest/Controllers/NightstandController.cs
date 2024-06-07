@@ -2,33 +2,33 @@
 using Models;
 using Novel_Nest.Models;
 using Novel_Nest_Core;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Novel_Nest.Controllers
 {
-	public class NightstandController : Controller
-	{
-		private BookLogic _bookLogic;
-		public NightstandController()
-		{
-			_bookLogic = new BookLogic();
-		}
+    public class NightstandController : Controller
+    {
+        private readonly BookService _bookService;
 
-		public IActionResult Index()
-		{
-			var nightstandBooks = _bookLogic.GetNightstandBooks();
-			var model = new SpecifyBookDetailsViewModel
-			{
-				NightstandBooks = nightstandBooks
-			};
-			return View(model);
-		}
+        public NightstandController(BookService bookService)
+        {
+            _bookService = bookService;
+        }
+
+        public IActionResult Index()
+        {
+            var nightstandBooks = _bookService.GetNightstandBooks();
+            var model = new SpecifyBookDetailsViewModel
+            {
+                NightstandBooks = nightstandBooks
+            };
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult AddBookToNightstand()
         {
-            var books = _bookLogic.GetBooks();
-            var nightstandBooks = _bookLogic.GetNightstandBooks();
+            var books = _bookService.GetBooks();
+            var nightstandBooks = _bookService.GetNightstandBooks();
 
             var availableBooks = books.Where(book => !nightstandBooks.Any(nb => nb.BookId == book.Id)).ToList();
 
@@ -42,34 +42,33 @@ namespace Novel_Nest.Controllers
         }
 
         [HttpPost]
-		public async Task<IActionResult> AddBookToNightstand(NightstandBookDTO nightstandBook)
-		{
-			if (ModelState.IsValid)
-			{
-				bool success = await _bookLogic.AddBookToNightstandAsync(nightstandBook);
+        public async Task<IActionResult> AddBookToNightstand(NightstandBookDTO nightstandBook)
+        {
+            if (ModelState.IsValid)
+            {
+                bool success = await _bookService.AddBookToNightstandAsync(nightstandBook);
 
-				if (success)
-				{
-					
-					return RedirectToAction("Index", "Nightstand");
-				}
-				else
-				{
-					ViewBag.ErrorMessage = "Failed to add book to nightstand. Please try again.";
-					return View("ErrorView", nightstandBook);
-				}
-			}
-			else
-			{
-				return View("AddBookToNightstand", nightstandBook);
-			}
-		}
+                if (success)
+                {
+                    return RedirectToAction("Index", "Nightstand");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Failed to add book to nightstand. Please try again.";
+                    return View("ErrorView", nightstandBook);
+                }
+            }
+            else
+            {
+                return View("AddBookToNightstand", nightstandBook);
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> DeleteBook(int Id)
         {
             Console.WriteLine($"Attempting to delete book with Id: {Id}");
-            bool success = await _bookLogic.DeleteNightstandBookAsync(Id);
+            bool success = await _bookService.DeleteNightstandBookAsync(Id);
             if (success)
             {
                 return RedirectToAction("Index", "Nightstand");
@@ -82,4 +81,3 @@ namespace Novel_Nest.Controllers
         }
     }
 }
-
