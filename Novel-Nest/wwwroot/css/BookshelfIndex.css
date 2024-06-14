@@ -1,6 +1,6 @@
 ﻿body {
     font-family: Arial, sans-serif;
-    background-color: #e0c8a0;
+    background-color: #e5dbff;
     margin: 0;
     padding: 0;
 }
@@ -12,7 +12,7 @@ html {
 }
 
 .btn {
-    background-color: #4d2e00; /* Knopkleur */
+    background-color: #9775fa; /* Knopkleur */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -20,9 +20,9 @@ html {
     border-radius: 5px;
 }
 
-.btn:hover {
-    background-color: #6d4e1e; /* Knopkleur bij hover */
-}
+    .btn:hover {
+        background-color: #b197fc; /* Knopkleur bij hover */
+    }
 
 .book-list {
     display: grid;

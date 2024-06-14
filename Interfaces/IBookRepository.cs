@@ -13,14 +13,14 @@ namespace Interfaces
 
 		public List<CategoryDTO> GetCategories();
 
-		public List<BookDTO> GetBooks();
+		public List<BookDTO> GetBooks(int userId);
 
 		public Task<bool> DeleteBookAsync(int Id);
 
 		public Task<bool> EditBookAsync(BookDTO book);
 		public Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook);
 
-		public List<NightstandBookDTO> GetNightstandBooks();
+		public List<NightstandBookDTO> GetNightstandBooks(int userId);
 
 		public Task<bool> DeleteNightstandBookAsync(int bookId);
 

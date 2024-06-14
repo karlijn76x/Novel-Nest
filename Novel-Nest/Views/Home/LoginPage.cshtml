@@ -26,16 +26,13 @@
 			<input type="text" placeholder="Fill in your emailadress" name="email" required />
 			<input type="password" placeholder="Fill in your password" name="password" required />
 			<br>
-			<p>Forgot your password? Click <a href="@Url.Action("PasswordReset", "Home")">here</a> to request a new password.</p>
+			@* <p>Forgot your password? Click <a href="@Url.Action("PasswordReset", "Home")">here</a> to request a new password.</p> *@
 
 			<button type="submit">Login</button>
 		</div>
 	</form>
 	<p class="title">Create your new account!</p>
 		<form method="post" action="@Url.Action("CreateAccount", "Account")">
-
-		@* @using (Html.BeginForm("CreateAccount", "AccountController", FormMethod.Post))
-		{ *@
 			<div class="create-field">
 				<input type="text" placeholder="Fill in your name" name="Name" required />
 
@@ -43,15 +40,12 @@
 
 				<input type="text" placeholder="Fill in your emailadress" name="Email" required />
 
-				@* <input type="text" placeholder="Confirm your emailadress" name="email" required /> *@
+				
 
 				<input type="password" placeholder="Fill in your password" name="Password" required />
 
-				@* <input type="password" placeholder="Confirm your password" name="password" required /> *@
 			</div>
-
 			<button type="submit">Create Account</button>
-	@* 	} *@
 	</form>
 
 	</div>

@@ -11,6 +11,7 @@
 <body>
     <h1>Choose a book to add to your nightstand!</h1>
     <p>When you add a book to your nightstand, you can pick a starting date, when you finish a book you can set a date as well.</p>
+    <div class="book-list">
     @foreach (var book in Model.Books)
     {
         <div class="books">
@@ -22,5 +23,6 @@
             </form>
         </div>
     }
+    </div>
 </body>
 </html>

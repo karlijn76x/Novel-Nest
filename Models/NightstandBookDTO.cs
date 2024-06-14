@@ -14,6 +14,7 @@ namespace Models
 		public string Author { get; set; } = string.Empty;
 		public DateTime? DateStarted { get; set; }
 		public DateTime? DateFinished { get; set; }
+		public int UserId { get; set; }
 
 	}
 }

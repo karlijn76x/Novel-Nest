@@ -15,5 +15,6 @@ namespace Models
 		public string CategoryName { get; set; } = string.Empty;
 		public DateTime ? DateStarted { get; set; }
 		public DateTime? EndDate { get; set; }
+		public int UserId { get; set; }
 	}
 }

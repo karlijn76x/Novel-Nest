@@ -27,47 +27,58 @@ namespace Novel_Nest.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddBook(BookDTO book)
-        {
-            if (ModelState.IsValid)
-            {
-                bool success = await _bookService.AddBookAsync(book);
-                if (success)
-                {
-                    Console.WriteLine("success");
-                    return RedirectToAction("Index", "Bookshelf");
-                }
-                else
-                {
-                    Console.WriteLine("failed");
-                    ViewBag.ErrorMessage = "Failed to create account. Please try again.";
-                    return View("ErrorView", book);
-                }
-            }
-            else
-            {
-                Console.WriteLine("failed 2");
-                return View("AddCategory", book);
-            }
-        }
+		[HttpPost]
+		public async Task<IActionResult> AddBook(BookDTO book)
+		{
+			if (ModelState.IsValid)
+			{
+				var userId = HttpContext.Session.GetInt32("UserId");
+				if (userId == null)
+				{
+					return RedirectToAction("LoginPage", "Home");
+				}
+				book.UserId = userId.Value; // Voeg deze regel toe
+				bool success = await _bookService.AddBookAsync(book);
+				if (success)
+				{
+					return RedirectToAction("Index", "Bookshelf");
+				}
+				else
+				{
+					ViewBag.ErrorMessage = "Failed to create book. Please try again.";
+					return View("ErrorView", book);
+				}
+			}
+			else
+			{
+				return View("AddCategory", book);
+			}
+		}
 
-        [HttpGet]
-        public IActionResult EditBook()
-        {
-            var categories = _bookService.GetCategories();
-            var books = _bookService.GetBooks();
 
-            var model = new EditBookViewModel
-            {
-                Categories = categories,
-                Books = books
-            };
+		[HttpGet]
+		public IActionResult EditBook()
+		{
+			var userId = HttpContext.Session.GetInt32("UserId");
+			if (userId == null)
+			{
+				return RedirectToAction("LoginPage", "Home");
+			}
 
-            return View(model);
-        }
+			var categories = _bookService.GetCategories();
+			var books = _bookService.GetBooks(userId.Value); // Gebruik de userId om de boeken op te halen
 
-        [HttpPost]
+			var model = new EditBookViewModel
+			{
+				Categories = categories,
+				Books = books
+			};
+
+			return View(model);
+		}
+
+
+		[HttpPost]
         public async Task<IActionResult> DeleteBook(int Id)
         {
             try

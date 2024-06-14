@@ -35,6 +35,13 @@ namespace Novel_Nest.Controllers
         }
 
         [HttpPost]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("LoginPage", "Home");
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CreateAccount(UserModelDTO userModel)
         {
             if (ModelState.IsValid)
@@ -43,7 +50,7 @@ namespace Novel_Nest.Controllers
 
                 if (success)
                 {
-                    return RedirectToAction("Index", "Bookshelf");
+                    return RedirectToAction("LoginPage", "Home");
                 }
                 else
                 {

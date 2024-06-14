@@ -11,23 +11,48 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-brown bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Novel Nest</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                   
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    @if (Context.Session.GetInt32("UserId") != null)
+                    {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LoginPage">Login/Create Account</a>
+                            <form asp-area="" asp-controller="Bookshelf" asp-action="Index" method="get">
+                                <button type="submit" class="btnNavbar">Library</button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Bookshelf" asp-action="Index">Library</a>
+                            <input class="btnNavbar" type="button" value="Go to Nightstand" onclick="location.href='@Url.Action("Index", "Nightstand")'" />
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <form asp-area="" asp-controller="Home" asp-action="Index" method="get">
+                                <button type="submit" class="btnNavbar">Home</button>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-area="" asp-controller="Home" asp-action="LoginPage" method="get">
+                                <button type="submit" class="btnNavbar">Login/Create Account</button>
+                            </form>
+                        </li>
+                    }
+                </ul>
+                @if (Context.Session.GetInt32("UserId") != null)
+                {
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Andere nav items -->
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Gebruik ml-auto om naar rechts te duwen -->
+                        <li class="nav-item">
+                            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                                <button type="submit" class="btnNavbar">Logout</button>
+                            </form>
                         </li>
                     </ul>
-                </div>
+                }
+
             </div>
         </nav>
     </header>
@@ -37,11 +62,11 @@
         </main>
     </div>
 
-    <footer class="sticky-bottom" style="bottom:0;position:fixed;>
+    <footer class="sticky-bottom" style="bottom:0;position:fixed;">
         <div class="container">
-            &copy; 2024 - Novel Nest 
+            &copy; 2024 - Novel Nest
         </div>
-    </footer >
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

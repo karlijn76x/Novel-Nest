@@ -16,7 +16,12 @@ namespace Novel_Nest.Controllers
 
         public IActionResult Index()
         {
-            var books = _bookService.GetBooks();
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+			{
+				return RedirectToAction("LoginPage", "Home");
+			}
+            var books = _bookService.GetBooks(userId.Value);
 
             var model = new BooksViewModel
             {
