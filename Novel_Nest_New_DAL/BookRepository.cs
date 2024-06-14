@@ -271,5 +271,27 @@ namespace Novel_Nest_DAL
                 return false;
             }
         }
+        public async Task<bool> IsBookInNightstandAsync(int bookId)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    var query = "SELECT COUNT(1) FROM nightstandbook WHERE BookId = @BookId";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@BookId", bookId);
+                        var result = await command.ExecuteScalarAsync();
+                        return Convert.ToInt32(result) > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error checking if book is in nightstand: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

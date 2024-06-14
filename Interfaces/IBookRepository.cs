@@ -23,6 +23,7 @@ namespace Interfaces
 		public List<NightstandBookDTO> GetNightstandBooks(int userId);
 
 		public Task<bool> DeleteNightstandBookAsync(int bookId);
+		public Task<bool> IsBookInNightstandAsync(int bookId);
 
-	}
+    }
 }

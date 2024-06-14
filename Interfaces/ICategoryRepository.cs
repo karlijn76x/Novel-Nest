@@ -13,5 +13,7 @@ namespace Interfaces
         List<CategoryDTO> GetCategories();
         Task<bool> DeleteCategoryAsync(int Id);
         Task<bool> EditCategoryAsync(CategoryDTO category);
-    }
+		public Task<bool> IsCategoryInUseAsync(int categoryId);
+
+	}
 }

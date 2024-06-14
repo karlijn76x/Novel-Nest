@@ -73,8 +73,8 @@ namespace Novel_Nest.Controllers
 				Categories = categories,
 				Books = books
 			};
-
-			return View(model);
+       
+            return View(model);
 		}
 
 
@@ -83,7 +83,14 @@ namespace Novel_Nest.Controllers
         {
             try
             {
+                bool isInNightstand = await _bookService.IsBookInNightstandAsync(Id);
+                if (isInNightstand)
+                {
+                    TempData["Message"] = "CannotDeleteInNightstand"; // Specifieke sleutel voor deze situatie
+                    return RedirectToAction("EditBook");
+                }
                 await _bookService.DeleteBookAsync(Id);
+                TempData["Message"] = "Deleted";
                 return RedirectToAction("EditBook");
             }
             catch (Exception ex)
@@ -99,6 +106,7 @@ namespace Novel_Nest.Controllers
             try
             {
                 await _bookService.EditBookAsync(book);
+                TempData["Message"] = "Edited";
                 return RedirectToAction("EditBook");
             }
             catch (Exception ex)

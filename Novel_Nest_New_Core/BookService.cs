@@ -51,6 +51,9 @@ namespace Novel_Nest_Core
 		{
 			return await _bookRepository.DeleteNightstandBookAsync(Id);
 		}
-
-	}
+        public async Task<bool> IsBookInNightstandAsync(int bookId)
+        {
+            return await _bookRepository.IsBookInNightstandAsync(bookId);
+        }
+    }
 }

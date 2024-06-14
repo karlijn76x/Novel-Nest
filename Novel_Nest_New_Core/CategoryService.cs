@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Models;
+using Novel_Nest_DAL;
 
 namespace Novel_Nest_Core
 {
@@ -31,5 +32,9 @@ namespace Novel_Nest_Core
         {
             return await _categoryRepository.EditCategoryAsync(category);
         }
-    }
+		public async Task<bool> IsCategoryInUseAsync(int categoryId)
+		{
+			return await _categoryRepository.IsCategoryInUseAsync(categoryId);
+		}
+	}
 }
