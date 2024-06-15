@@ -10,10 +10,12 @@ namespace Novel_Nest.Controllers
     public class BookController : Controller
     {
         private readonly BookService _bookService;
+        private readonly APIService _apiService;
 
-        public BookController(BookService bookService)
+        public BookController(BookService bookService, APIService apiService)
         {
             _bookService = bookService;
+            _apiService = apiService;
         }
 
         public IActionResult NewBook()
@@ -37,24 +39,25 @@ namespace Novel_Nest.Controllers
 				{
 					return RedirectToAction("LoginPage", "Home");
 				}
-				book.UserId = userId.Value; // Voeg deze regel toe
+				book.UserId = userId.Value;
 				bool success = await _bookService.AddBookAsync(book);
 				if (success)
 				{
-					return RedirectToAction("Index", "Bookshelf");
+					TempData["Message"] = "Book successfully added.";
+					return RedirectToAction("NewBook");
 				}
 				else
 				{
-					ViewBag.ErrorMessage = "Failed to create book. Please try again.";
-					return View("ErrorView", book);
+					TempData["ErrorMessage"] = "Failed to create book. Please try again.";
+					return RedirectToAction("NewBook");
 				}
 			}
 			else
 			{
-				return View("AddCategory", book);
+				TempData["ErrorMessage"] = "Invalid book data. Please try again.";
+				return RedirectToAction("NewBook");
 			}
 		}
-
 
 		[HttpGet]
 		public IActionResult EditBook()
@@ -76,7 +79,6 @@ namespace Novel_Nest.Controllers
        
             return View(model);
 		}
-
 
 		[HttpPost]
         public async Task<IActionResult> DeleteBook(int Id)
@@ -115,5 +117,25 @@ namespace Novel_Nest.Controllers
                 return View("ErrorView");
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchBooks(string query)
+        {
+            var searchResults = await _apiService.SearchBooksAsync(query);
+            var books = searchResults.Docs.Select(book => new
+            {
+                Title = book.Title,
+                Author = string.Join(", ", book.Author),
+                CoverImageUrl = _apiService.GetCoverImageUrl(book.Olid),
+            }).ToList();
+
+            return Json(books);
+        }
+
+
+
+
+
+
     }
 }

@@ -293,5 +293,33 @@ namespace Novel_Nest_DAL
                 return false;
             }
         }
+        public async Task<bool> AddBookFromApiAsync(BookDTO book)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    var query = "INSERT INTO book (Title, Author, CategoryId, UserId, CoverImageUrl) VALUES (@Title, @Author, @CategoryId, @UserId, @CoverImageUrl)";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Title", book.Title);
+                        command.Parameters.AddWithValue("@Author", book.Author);
+                        command.Parameters.AddWithValue("@CategoryId", book.CategoryId);
+                        command.Parameters.AddWithValue("@UserId", book.UserId);
+                        command.Parameters.AddWithValue("@CoverImageUrl", book.CoverImageUrl ?? string.Empty);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding book from API: {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }

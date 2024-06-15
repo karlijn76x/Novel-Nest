@@ -1,5 +1,7 @@
 ﻿using Interfaces;
 using Models;
+using Newtonsoft.Json;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Novel_Nest_Core
 {
@@ -11,7 +13,6 @@ namespace Novel_Nest_Core
         {
             _bookRepository = bookRepository;
         }
-
         public async Task<bool> AddBookAsync(BookDTO book)
         {
             return await _bookRepository.AddBookAsync(book);
@@ -55,5 +56,10 @@ namespace Novel_Nest_Core
         {
             return await _bookRepository.IsBookInNightstandAsync(bookId);
         }
+        public async Task<bool> AddBookFromApiAsync(BookDTO book)
+        {
+            return await _bookRepository.AddBookFromApiAsync(book);
+        }
+
     }
 }

@@ -24,6 +24,7 @@ namespace Interfaces
 
 		public Task<bool> DeleteNightstandBookAsync(int bookId);
 		public Task<bool> IsBookInNightstandAsync(int bookId);
+		public Task<bool> AddBookFromApiAsync(BookDTO book);
 
     }
 }

@@ -83,26 +83,34 @@ namespace Novel_Nest.Controllers
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> EditCategoryAsync(CategoryDTO category)
-        {
-            try
-            {
-                var success = await _categoryService.EditCategoryAsync(category);
-                if (success)
-                {
-                    return RedirectToAction("Category");
-                }
-                else
-                {
-                    ViewBag.ErrorMessage = "Failed to edit category.";
-                    return View("ErrorView", category);
-                }
-            }
-            catch (Exception ex)
-            {
-                ViewBag.ErrorMessage = "Failed to edit category. " + ex.Message;
-                return View("ErrorView", category);
-            }
-        }
-    }
+		public async Task<IActionResult> EditCategoryAsync(CategoryDTO category)
+		{
+			try
+			{
+				if (!ModelState.IsValid)
+				{
+					TempData["ErrorMessage"] = "Invalid data.";
+					return RedirectToAction("Category");
+				}
+
+				var success = await _categoryService.EditCategoryAsync(category);
+				if (success)
+				{
+					TempData["Message"] = "Category successfully edited.";
+					return RedirectToAction("Category");
+				}
+				else
+				{
+					TempData["ErrorMessage"] = "Failed to edit category.";
+					return RedirectToAction("Category");
+				}
+			}
+			catch (Exception ex)
+			{
+				TempData["ErrorMessage"] = "Failed to edit category. " + ex.Message;
+				return RedirectToAction("Category");
+			}
+		}
+
+	}
 }

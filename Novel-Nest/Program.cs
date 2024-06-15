@@ -21,6 +21,9 @@ builder.Services.AddSingleton<IUserDB>(new UserDB(ConnectionString));
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<APIService>();
+
+builder.Services.AddHttpClient();
 
 // Configure session state
 builder.Services.AddSession(options =>
