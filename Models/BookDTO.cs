@@ -17,5 +17,9 @@ namespace Models
 		public DateTime? EndDate { get; set; }
 		public int UserId { get; set; }
         public string CoverImageUrl { get; set; } = string.Empty;
+        public DateTime? DateFinished { get; set; }
+        public int? Rating { get; set; }
+        public string Review { get; set; } = string.Empty;
+        public bool Finished { get; set; } = false;
     }
 }

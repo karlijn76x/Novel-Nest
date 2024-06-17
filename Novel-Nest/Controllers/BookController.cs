@@ -118,23 +118,20 @@ namespace Novel_Nest.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> SearchBooks(string query)
         {
             var searchResults = await _apiService.SearchBooksAsync(query);
             var books = searchResults.Docs.Select(book => new
             {
                 Title = book.Title,
-                Author = string.Join(", ", book.Author),
+                // Controleer of de Author lijst null is en vervang deze door een lege lijst of standaardwaarde indien nodig
+                Author = book.Author != null ? string.Join(", ", book.Author) : "Onbekende auteur",
                 CoverImageUrl = _apiService.GetCoverImageUrl(book.Olid),
             }).ToList();
 
             return Json(books);
         }
-
-
-
-
 
 
     }

@@ -27,6 +27,10 @@ namespace Novel_Nest_Core
         {
             return _bookRepository.GetBooks(userId);
         }
+        public async Task<BookDTO> GetBookByUserIdAndBookId(int userId, int bookId)
+        {
+            return await _bookRepository.GetBookByUserIdAndBookId(userId, bookId);
+        }
 
         public async Task<bool> DeleteBookAsync(int Id)
         {
@@ -60,6 +64,15 @@ namespace Novel_Nest_Core
         {
             return await _bookRepository.AddBookFromApiAsync(book);
         }
+        public async Task<NightstandBookDTO> GetNightstandBookByUserIdAndBookId(int userId, int bookId)
+        {
+			return await _bookRepository.GetNightstandBookByUserIdAndBookId(userId, bookId);
+		}
+        public async Task<bool> ReviewNightstandBookAsync(NightstandBookDTO nightstandBook)
+        {
+            return await _bookRepository.ReviewNightstandBookAsync(nightstandBook);
+        }
+
 
     }
 }

@@ -43,3 +43,8 @@ html {
     margin-bottom: 5px;
     text-align: center;
 }
+.info-button {
+    height: 2.3em;
+    width: 2.3em;
+    border: none;
+}

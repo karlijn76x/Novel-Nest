@@ -33,9 +33,10 @@
             </select>
         </div>
 		<button class="btn" type="submit" class="btnAdd">Add your own book</button>
-        <p>Or you can search for a book in our open library here and add this to your own library!</p>
+        
 	</form>
-    <form method="post" action="@Url.Action("SearchBooks", "Book")">
+    <p>Or you can search for a book in our open library here and add this to your own library!</p>
+    <form id="searchForm" method="post" action="@Url.Action("SearchBooks", "Book")">
         <div class="create-field">
             <input type="text" placeholder="Search by book title or author" name="query" required />
         </div>
@@ -45,57 +46,58 @@
         <div class="search-results" id="searchResults"></div>
     </div>
 
-    <script>
-        $(document).ready(function () {
-            $("form").submit(function (event) {
-                event.preventDefault(); // Voorkom het herladen van de pagina
-                var query = $("input[name='query']").val();
-                $.ajax({
-                    url: '@Url.Action("SearchBooks", "Book")',
-                    type: 'GET',
-                    dataType: 'json', // Zorg ervoor dat we verwachten JSON terug te krijgen
-                    data: { query: query },
-                    success: function (books) {
-                        var resultsHtml = '';
-                        books.forEach(function (book) {
-                            resultsHtml += '<div>' +
-                                '<img src="' + book.CoverImageUrl + '" alt="Cover image" style="width:100px;height:150px;">' +
-                                '<h3>' + book.Title + '</h3>' +
-                                '<p>' + book.Author + '</p>' +
-                                '</div>';
-                        });
-                        $("#searchResults").html(resultsHtml);
-                    }
-                });
-            });
-        });
-    </script>
-
-
-
-    
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var message = '@TempData["Message"]';
-            var errorMessage = '@TempData["ErrorMessage"]';
-
-            if (message) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: message,
-                    icon: 'success',
-                    confirmButtonText: 'Ok'
-                });
-            } else if (errorMessage) {
-                Swal.fire({
-                    title: 'Error!',
-                    text: errorMessage,
-                    icon: 'error',
-                    confirmButtonText: 'Ok'
-                });
-            }
-        });
-    </script>
 
 </body>
+
+<script>
+    $(document).ready(function () {
+        $("searchForm").submit(function (event) {
+            event.preventDefault(); // Voorkom het herladen van de pagina
+            var query = $("input[name='query']").val();
+            $.ajax({
+                url: '@Url.Action("SearchBooks", "Book")',
+                type: 'GET',
+                dataType: 'json', // Zorg ervoor dat we verwachten JSON terug te krijgen
+                data: { query: query },
+                success: function (books) {
+                    var resultsHtml = '';
+                    books.forEach(function (book) {
+                        resultsHtml += '<div>' +
+                            '<img src="' + book.CoverImageUrl + '" alt="Cover image" style="width:100px;height:150px;">' +
+                            '<h3>' + book.Title + '</h3>' +
+                            '<p>' + book.Author + '</p>' +
+                            '</div>';
+                    });
+                    $("#searchResults").html(resultsHtml);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var message = '@TempData["Message"]';
+        var errorMessage = '@TempData["ErrorMessage"]';
+
+        if (message) {
+            Swal.fire({
+                title: 'Success!',
+                text: message,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        } else if (errorMessage) {
+            Swal.fire({
+                title: 'Error!',
+                text: errorMessage,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
+</script>

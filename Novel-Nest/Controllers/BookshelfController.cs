@@ -39,5 +39,26 @@ namespace Novel_Nest.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> BookInfo(int bookId)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return RedirectToAction("LoginPage", "Home");
+            }
+
+            var book = await _bookService.GetBookByUserIdAndBookId(userId.Value, bookId);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var model = new BookInfoViewModel(book);
+
+            return View(model);
+        }
+
     }
 }
