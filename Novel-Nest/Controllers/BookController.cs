@@ -102,6 +102,7 @@ namespace Novel_Nest.Controllers
             }
         }
 
+
         [HttpPost]
         public async Task<IActionResult> EditBook(BookDTO book)
         {
@@ -117,21 +118,51 @@ namespace Novel_Nest.Controllers
                 return View("ErrorView");
             }
         }
-
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> SearchBooks(string query)
         {
-            var searchResults = await _apiService.SearchBooksAsync(query);
-            var books = searchResults.Docs.Select(book => new
+            if (string.IsNullOrWhiteSpace(query))
             {
-                Title = book.Title,
-                // Controleer of de Author lijst null is en vervang deze door een lege lijst of standaardwaarde indien nodig
-                Author = book.Author != null ? string.Join(", ", book.Author) : "Onbekende auteur",
-                CoverImageUrl = _apiService.GetCoverImageUrl(book.Olid),
-            }).ToList();
+                return Json(new { success = false, message = "Query cannot be empty." });
+            }
 
-            return Json(books);
+            var searchResult = await _apiService.SearchBooksAsync(query);
+            if (searchResult == null || searchResult.Docs == null || !searchResult.Docs.Any())
+            {
+                return Json(new { success = false, message = "No books found." });
+            }
+
+            return Json(new { success = true, books = searchResult.Docs });
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddBookFromSearch(string olid)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return Json(new { success = false, message = "User not logged in." });
+            }
+
+            var book = await _apiService.SearchBooksAsync(olid);
+            if (book == null || book.Docs == null || !book.Docs.Any())
+            {
+                return Json(new { success = false, message = "Book not found." });
+            }
+
+            var firstBook = book.Docs.First();
+            var addSuccess = await _bookService.AddBookFromSearchAsync(firstBook, userId.Value);
+            if (addSuccess)
+            {
+                return Json(new { success = true, message = "Book added successfully." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Failed to add the book." });
+            }
+        }
+
 
 
     }

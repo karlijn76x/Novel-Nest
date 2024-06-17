@@ -33,52 +33,9 @@
             </select>
         </div>
 		<button class="btn" type="submit" class="btnAdd">Add your own book</button>
-        
-	</form>
-    <p>Or you can search for a book in our open library here and add this to your own library!</p>
-    <form id="searchForm" method="post" action="@Url.Action("SearchBooks", "Book")">
-        <div class="create-field">
-            <input type="text" placeholder="Search by book title or author" name="query" required />
-        </div>
-        <button class="btn" type="submit">Search Books</button>
     </form>
-    <div class="container">
-        <div class="search-results" id="searchResults"></div>
-    </div>
-
-
 </body>
-
-<script>
-    $(document).ready(function () {
-        $("searchForm").submit(function (event) {
-            event.preventDefault(); // Voorkom het herladen van de pagina
-            var query = $("input[name='query']").val();
-            $.ajax({
-                url: '@Url.Action("SearchBooks", "Book")',
-                type: 'GET',
-                dataType: 'json', // Zorg ervoor dat we verwachten JSON terug te krijgen
-                data: { query: query },
-                success: function (books) {
-                    var resultsHtml = '';
-                    books.forEach(function (book) {
-                        resultsHtml += '<div>' +
-                            '<img src="' + book.CoverImageUrl + '" alt="Cover image" style="width:100px;height:150px;">' +
-                            '<h3>' + book.Title + '</h3>' +
-                            '<p>' + book.Author + '</p>' +
-                            '</div>';
-                    });
-                    $("#searchResults").html(resultsHtml);
-                }
-            });
-        });
-    });
-</script>
-
-
-
-
-
+    </html>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var message = '@TempData["Message"]';
@@ -101,3 +58,61 @@
         }
     });
 </script>
+	@* 
+    <p>Or you can search for a book in our open library here and add this to your own library!</p>
+    <form id="searchForm" method="post" action="@Url.Action("SearchBooks", "Book")">
+        <div class="create-field">
+            <input type="text" placeholder="Search by book title or author" name="query" required />
+        </div>
+        <button class="btn" type="submit">Search Books</button>
+    </form>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $("#searchForm").submit(function (event) {
+            event.preventDefault();
+            var query = $("input[name='query']").val();
+            $.ajax({
+                url: '@Url.Action("SearchBooks", "Book")',
+                type: 'GET',
+                dataType: 'json',
+                data: { query: query },
+                success: function (response) {
+                    if (response.success) {
+                        var resultsHtml = '';
+                        response.books.forEach(function (book) {
+                            resultsHtml += '<div class="search-result-item">' +
+                                '<img src="' + book.CoverImageUrl + '" alt="Cover image" style="width:100px;height:150px;">' +
+                                '<h3>' + book.Title + '</h3>' +
+                                '<p>' + book.AuthorName.join(", ") + '</p>' +
+                                '<button onclick="addBook(\'' + book.Olid + '\')">Add to My Collection</button>' +
+                                '</div>';
+                        });
+                        $("#searchResults").html(resultsHtml);
+                    } else {
+                        Swal.fire('Error!', 'No books found. Please try again.', 'error');
+                    }
+                }
+
+            });
+        });
+    });
+
+    function addBook(olid) {
+        $.ajax({
+            url: '@Url.Action("AddBookFromSearch", "Book")',
+            type: 'POST',
+            dataType: 'json',
+            data: { olid: olid },
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire('Success!', 'Book added to your collection!', 'success');
+                } else {
+                    Swal.fire('Error!', 'Could not add the book. Please try again.', 'error');
+                }
+            }
+        });
+    }
+</script>
+ *@

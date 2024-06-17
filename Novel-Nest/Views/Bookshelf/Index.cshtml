@@ -13,7 +13,7 @@
     <title>Novel Nest</title>
 </head>
 <body>
-    <h1>Hello, welcome to your library!</h1>
+    <h1>Hello @Model.UserName, welcome to your library!</h1>
     <p>Add new books, add categories</p>
     <input class="btn" type="button" value="Create new category" onclick="location.href='@Url.Action("Category", "Category")'" />
     <input class="btn" type="button" value="Add new book" onclick="location.href='@Url.Action("NewBook", "Book")'" />

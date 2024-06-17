@@ -13,22 +13,25 @@ namespace Novel_Nest.Controllers
         {
             _bookService = bookService;
         }
-
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null)
-			{
-				return RedirectToAction("LoginPage", "Home");
-			}
+            {
+                return RedirectToAction("LoginPage", "Home");
+            }
             var books = _bookService.GetBooks(userId.Value);
+            var userName = await _bookService.GetUserNameAsync(userId.Value);
 
             var model = new BooksViewModel
             {
-                Books = books
+                Books = books,
+                UserName = userName 
             };
             return View(model);
         }
+
 
         public IActionResult AddBooks()
         {

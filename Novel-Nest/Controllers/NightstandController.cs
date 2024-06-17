@@ -124,7 +124,7 @@ public class NightstandController : Controller
             UserId = userId.Value,
             BookId = bookId,
 			Title = book.Title,
-            // Vul de rest van de velden in indien nodig
+            
         };
 
         return View(model);

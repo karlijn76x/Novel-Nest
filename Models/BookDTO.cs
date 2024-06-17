@@ -21,5 +21,6 @@ namespace Models
         public int? Rating { get; set; }
         public string Review { get; set; } = string.Empty;
         public bool Finished { get; set; } = false;
+		public int BookId { get; set; }
     }
 }

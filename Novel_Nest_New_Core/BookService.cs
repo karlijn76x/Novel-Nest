@@ -9,10 +9,30 @@ namespace Novel_Nest_Core
     {
         private readonly IBookRepository _bookRepository;
 
+        public async Task<bool> AddBookFromSearchAsync(OpenLibraryBook book, int userId)
+        {
+           
+            var bookDto = new BookDTO
+            {
+                Title = book.Title,
+                Author = string.Join(", ", book.AuthorName), 
+                CategoryId = 1, 
+                UserId = userId,
+                CoverImageUrl = book.CoverImageUrl
+            };
+
+            return await _bookRepository.AddBookAsync(bookDto);
+        }
+
         public BookService(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }
+        public async Task<string> GetUserNameAsync(int userId)
+        {
+            return await _bookRepository.GetUserNameByIdAsync(userId);
+        }
+
         public async Task<bool> AddBookAsync(BookDTO book)
         {
             return await _bookRepository.AddBookAsync(book);

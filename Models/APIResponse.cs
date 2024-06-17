@@ -11,14 +11,13 @@ namespace Models
         public int NumFound { get; set; }
         public List<OpenLibraryBook> Docs { get; set; }
     }
-
     public class OpenLibraryBook
     {
-        // Add properties as per your requirement
         public string Title { get; set; }
-        public List<string> Author { get; set; }
+        public List<string> AuthorName { get; set; }
         public string CoverImageUrl { get; set; }
         public string Olid { get; set; }
     }
+
 
 }

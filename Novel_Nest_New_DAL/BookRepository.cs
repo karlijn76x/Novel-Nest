@@ -12,8 +12,17 @@ namespace Novel_Nest_DAL
         {
             _connectionString = connectionString;
         }
+        public async Task<string> GetUserNameByIdAsync(int userId)
+        {
+            await using var connection = new MySqlConnection(_connectionString);
+            await connection.OpenAsync();
+            using var command = new MySqlCommand("SELECT Name FROM user WHERE Id = @UserId", connection);
+            command.Parameters.AddWithValue("@userId", userId);
+            var result = await command.ExecuteScalarAsync();
+            return result?.ToString();
+        }
 
-		public async Task<bool> AddBookAsync(BookDTO book)
+        public async Task<bool> AddBookAsync(BookDTO book)
 		{
 			try
 			{
@@ -131,7 +140,7 @@ SELECT b.*, c.Name AS CategoryName,
 FROM book b 
 JOIN category c ON b.CategoryId = c.Id
 LEFT JOIN nightstandbook nb ON b.Id = nb.BookId AND nb.UserId = @UserId
-WHERE b.UserId = @UserId AND b.Id = @BookId"; // Gecorrigeerd naar AND
+WHERE b.UserId = @UserId AND b.Id = @BookId";
 
                     using (var command = new MySqlCommand(query, connection))
                     {
@@ -167,8 +176,6 @@ WHERE b.UserId = @UserId AND b.Id = @BookId"; // Gecorrigeerd naar AND
             return null;
         }
 
-
-
         public async Task<bool> DeleteBookAsync(int Id)
         {
             try
@@ -201,13 +208,13 @@ WHERE b.UserId = @UserId AND b.Id = @BookId"; // Gecorrigeerd naar AND
 				{
 					await connection.OpenAsync();
 
-					var query = "UPDATE book SET Title = @Title, Author = @Author, CategoryId = @CategoryId WHERE Id = @BookId";
+					var query = "UPDATE book SET Title = @Title, Author = @Author, CategoryId = @CategoryId WHERE BookId = @BookId";
 					using (var command = new MySqlCommand(query, connection))
 					{
 						command.Parameters.AddWithValue("@Author", book.Author);
 						command.Parameters.AddWithValue("@Title", book.Title);
 						command.Parameters.AddWithValue("@CategoryId", book.CategoryId);
-						command.Parameters.AddWithValue("@BookId", book.Id);
+						command.Parameters.AddWithValue("@BookId", book.BookId);
 
 						await command.ExecuteNonQueryAsync();
 					}
@@ -220,8 +227,6 @@ WHERE b.UserId = @UserId AND b.Id = @BookId"; // Gecorrigeerd naar AND
 				return false;
 			}
 		}
-
-
         public async Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook)
         {
             try
@@ -295,7 +300,6 @@ WHERE b.UserId = @UserId AND b.Id = @BookId"; // Gecorrigeerd naar AND
 				return new List<NightstandBookDTO>();
 			}
 		}
-
 
 		public async Task<bool> DeleteNightstandBookAsync(int Id)
         {

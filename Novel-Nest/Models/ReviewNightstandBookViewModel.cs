@@ -7,6 +7,6 @@
         public int? Rating { get; set; }
         public string Review { get; set; }
         public int BookId { get; set; }
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
     }
 }
