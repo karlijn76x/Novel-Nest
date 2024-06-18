@@ -50,40 +50,40 @@ namespace Novel_Nest_DAL
 		}
 
 
-		public List<CategoryDTO> GetCategories()
-        {
-            try
-            {
-                var categories = new List<CategoryDTO>();
+		//public List<CategoryDTO> GetCategories()
+  //      {
+  //          try
+  //          {
+  //              var categories = new List<CategoryDTO>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    var query = "SELECT * FROM category";
-                    using (var command = new MySqlCommand(query, connection))
-                    {
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var category = new CategoryDTO
-                                {
-                                    Name = reader.GetString("Name"),
-                                    Id = reader.GetInt32("Id")
-                                };
-                                categories.Add(category);
-                            }
-                        }
-                    }
-                }
-                return categories;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error retrieving categories: {ex.Message}");
-                return new List<CategoryDTO>();
-            }
-        }
+  //              using (MySqlConnection connection = new MySqlConnection(_connectionString))
+  //              {
+  //                  connection.Open();
+  //                  var query = "SELECT * FROM category";
+  //                  using (var command = new MySqlCommand(query, connection))
+  //                  {
+  //                      using (var reader = command.ExecuteReader())
+  //                      {
+  //                          while (reader.Read())
+  //                          {
+  //                              var category = new CategoryDTO
+  //                              {
+  //                                  Name = reader.GetString("Name"),
+  //                                  Id = reader.GetInt32("Id")
+  //                              };
+  //                              categories.Add(category);
+  //                          }
+  //                      }
+  //                  }
+  //              }
+  //              return categories;
+  //          }
+  //          catch (Exception ex)
+  //          {
+  //              Console.WriteLine($"Error retrieving categories: {ex.Message}");
+  //              return new List<CategoryDTO>();
+  //          }
+  //      }
 
 		public List<BookDTO> GetBooks(int userId)
 		{
@@ -200,33 +200,37 @@ WHERE b.UserId = @UserId AND b.Id = @BookId";
             }
         }
 
-		public async Task<bool> EditBookAsync(BookDTO book)
-		{
-			try
-			{
-				using (MySqlConnection connection = new MySqlConnection(_connectionString))
-				{
-					await connection.OpenAsync();
+        public async Task<bool> EditLibraryBookAsync(BookDTO book)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
 
-					var query = "UPDATE book SET Title = @Title, Author = @Author, CategoryId = @CategoryId WHERE BookId = @BookId";
-					using (var command = new MySqlCommand(query, connection))
-					{
-						command.Parameters.AddWithValue("@Author", book.Author);
-						command.Parameters.AddWithValue("@Title", book.Title);
-						command.Parameters.AddWithValue("@CategoryId", book.CategoryId);
-						command.Parameters.AddWithValue("@BookId", book.BookId);
+                    // Let op: we gebruiken nu @Id in plaats van @BookId voor consistentie
+                    var query = "UPDATE book SET Title = @Title, Author = @Author, CategoryId = @CategoryId WHERE Id = @Id AND UserId = @UserId";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Title", book.Title);
+                        command.Parameters.AddWithValue("@Author", book.Author);
+                        command.Parameters.AddWithValue("@CategoryId", book.CategoryId);
+                        command.Parameters.AddWithValue("@Id", book.Id); 
+                        command.Parameters.AddWithValue("@UserId", book.UserId);
 
-						await command.ExecuteNonQueryAsync();
-					}
-					return true;
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error updating book: {ex.Message}");
-				return false;
-			}
-		}
+                        var result = await command.ExecuteNonQueryAsync();
+                        return result > 0; 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating book: {ex.Message}");
+                return false;
+            }
+        }
+
+
         public async Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook)
         {
             try

@@ -48,12 +48,13 @@ namespace Novel_Nest.Controllers
             {
                 bool success = await _userService.CreateUserAsync(userModel);
 
-                if (success)
-                {
-                    return RedirectToAction("LoginPage", "Home");
-                }
-                else
-                {
+				if (success)
+				{
+					TempData["AccountCreated"] = "Your account has been successfully created. You can now login.";
+					return RedirectToAction("LoginPage", "Home");
+				}
+				else
+				{
                     ViewBag.ErrorMessage = "Failed to create account. Please try again.";
                     return View("ErrorView", userModel);
                 }

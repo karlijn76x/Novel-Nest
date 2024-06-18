@@ -11,16 +11,23 @@ namespace Novel_Nest.Controllers
     {
         private readonly BookService _bookService;
         private readonly APIService _apiService;
+        private readonly CategoryService _categoryService;
 
-        public BookController(BookService bookService, APIService apiService)
+        public BookController(BookService bookService, APIService apiService, CategoryService categoryService)
         {
             _bookService = bookService;
             _apiService = apiService;
+            _categoryService = categoryService;
         }
-
         public IActionResult NewBook()
         {
-            var categories = _bookService.GetCategories();
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return RedirectToAction("LoginPage", "Home");
+            }
+
+            var categories = _categoryService.GetCategories(userId.Value);
 
             var model = new CategoryViewModel
             {
@@ -29,7 +36,8 @@ namespace Novel_Nest.Controllers
             return View(model);
         }
 
-		[HttpPost]
+
+        [HttpPost]
 		public async Task<IActionResult> AddBook(BookDTO book)
 		{
 			if (ModelState.IsValid)
@@ -68,8 +76,8 @@ namespace Novel_Nest.Controllers
 				return RedirectToAction("LoginPage", "Home");
 			}
 
-			var categories = _bookService.GetCategories();
-			var books = _bookService.GetBooks(userId.Value); // Gebruik de userId om de boeken op te halen
+			var categories = _categoryService.GetCategories(userId.Value);
+			var books = _bookService.GetBooks(userId.Value); 
 
 			var model = new EditBookViewModel
 			{
@@ -102,15 +110,29 @@ namespace Novel_Nest.Controllers
             }
         }
 
-
+      
         [HttpPost]
-        public async Task<IActionResult> EditBook(BookDTO book)
+        public async Task<IActionResult> EditLibraryBook(BookDTO book)
         {
             try
             {
-                await _bookService.EditBookAsync(book);
-                TempData["Message"] = "Edited";
-                return RedirectToAction("EditBook");
+                var userId = HttpContext.Session.GetInt32("UserId");
+                if (userId == null)
+                {
+                    return RedirectToAction("LoginPage", "Home");
+                }
+                book.UserId = userId.Value; 
+                bool success = await _bookService.EditLibraryBookAsync(book);
+                if (success)
+                {
+                    TempData["Message"] = "Edited";
+                    return RedirectToAction("EditBook");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to edit. You may not have permission to edit this book.";
+                    return RedirectToAction("EditBook");
+                }
             }
             catch (Exception ex)
             {
@@ -118,6 +140,7 @@ namespace Novel_Nest.Controllers
                 return View("ErrorView");
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> SearchBooks(string query)
         {

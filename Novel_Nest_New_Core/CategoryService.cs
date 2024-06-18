@@ -18,10 +18,11 @@ namespace Novel_Nest_Core
             return await _categoryRepository.AddCategoryAsync(category);
         }
 
-        public List<CategoryDTO> GetCategories()
+        public List<CategoryDTO> GetCategories(int userId)
         {
-            return _categoryRepository.GetCategories();
+            return _categoryRepository.GetCategories(userId);
         }
+
 
         public async Task<bool> DeleteCategoryAsync(int Id)
         {

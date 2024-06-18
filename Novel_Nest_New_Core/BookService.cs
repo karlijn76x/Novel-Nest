@@ -38,10 +38,10 @@ namespace Novel_Nest_Core
             return await _bookRepository.AddBookAsync(book);
         }
 
-        public List<CategoryDTO> GetCategories()
-        {
-            return _bookRepository.GetCategories();
-        }
+        //public List<CategoryDTO> GetCategories()
+        //{
+        //    return _bookRepository.GetCategories();
+        //}
 
         public List<BookDTO> GetBooks(int userId)
         {
@@ -57,9 +57,9 @@ namespace Novel_Nest_Core
             return await _bookRepository.DeleteBookAsync(Id);
         }
 
-        public async Task<bool> EditBookAsync(BookDTO book)
+        public async Task<bool> EditLibraryBookAsync(BookDTO book)
         {
-            return await _bookRepository.EditBookAsync(book);
+            return await _bookRepository.EditLibraryBookAsync(book);
         }
 
 		public async Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook)

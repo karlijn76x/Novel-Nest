@@ -10,7 +10,7 @@ namespace Interfaces
 	public interface ICategoryRepository
 	{
         Task<bool> AddCategoryAsync(CategoryDTO category);
-        List<CategoryDTO> GetCategories();
+        List<CategoryDTO> GetCategories(int userId);
         Task<bool> DeleteCategoryAsync(int Id);
         Task<bool> EditCategoryAsync(CategoryDTO category);
 		public Task<bool> IsCategoryInUseAsync(int categoryId);

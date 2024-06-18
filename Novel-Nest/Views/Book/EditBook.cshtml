@@ -35,7 +35,7 @@
                     <li>
                         <div class="bookTitle">@book.Title by @book.Author. Current category: @book.CategoryName</div>
 
-                        <form method="post" action="@Url.Action("EditBook", "Book")">
+                        <form method="post" action="@Url.Action("EditLibraryBook", "Book")">
                             <input type="hidden" name="Id" value="@book.Id" />
                             <div class="edit-field">
                                 <input type="text" placeholder="Title" name="Title" value="@book.Title" required />

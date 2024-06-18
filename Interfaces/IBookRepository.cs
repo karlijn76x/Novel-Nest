@@ -11,11 +11,11 @@ namespace Interfaces
 	{
 		public Task<string> GetUserNameByIdAsync(int userId);
         public Task<bool> AddBookAsync(BookDTO book);
-		public List<CategoryDTO> GetCategories();
+		//public List<CategoryDTO> GetCategories();
 		public List<BookDTO> GetBooks(int userId);
 		public Task<BookDTO> GetBookByUserIdAndBookId(int userId, int bookId);
         public Task<bool> DeleteBookAsync(int Id);
-		public Task<bool> EditBookAsync(BookDTO book);
+		public Task<bool> EditLibraryBookAsync(BookDTO book);
 		public Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook);
 		public List<NightstandBookDTO> GetNightstandBooks(int userId);
 		public Task<bool> DeleteNightstandBookAsync(int bookId);

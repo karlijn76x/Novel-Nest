@@ -20,10 +20,11 @@ namespace Novel_Nest_DAL
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    var query = "INSERT INTO category (Name) VALUES (@Name)";
+                    var query = "INSERT INTO category (Name, UserId) VALUES (@Name, @UserId)";
                     using (var command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Name", category.Name);
+                        command.Parameters.AddWithValue("@UserId", category.UserId); 
                         await command.ExecuteNonQueryAsync();
                     }
                 }
@@ -36,7 +37,8 @@ namespace Novel_Nest_DAL
             }
         }
 
-        public List<CategoryDTO> GetCategories()
+
+        public List<CategoryDTO> GetCategories(int userId)
         {
             try
             {
@@ -45,9 +47,10 @@ namespace Novel_Nest_DAL
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     connection.Open();
-                    var query = "SELECT * FROM category";
+                    var query = "SELECT * FROM category WHERE UserId = @UserId";
                     using (var command = new MySqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@UserId", userId);
                         using (var reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -55,7 +58,8 @@ namespace Novel_Nest_DAL
                                 var category = new CategoryDTO
                                 {
                                     Name = reader.GetString("Name"),
-                                    Id = reader.GetInt32("Id")
+                                    Id = reader.GetInt32("Id"),
+                                    UserId = userId // Zorg ervoor dat de UserId wordt ingesteld
                                 };
                                 categories.Add(category);
                             }
@@ -70,6 +74,7 @@ namespace Novel_Nest_DAL
                 return new List<CategoryDTO>(); // Lege lijst retourneren in geval van fout
             }
         }
+
 
         public async Task<bool> DeleteCategoryAsync(int Id)
         {
@@ -101,15 +106,18 @@ namespace Novel_Nest_DAL
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    var query = "UPDATE category SET Name = @Name WHERE Id = @Id";
+                    // Voeg de UserId controle toe in de WHERE-clausule om te verzekeren dat de categorie toebehoort aan de gebruiker
+                    var query = "UPDATE category SET Name = @Name WHERE Id = @Id AND UserId = @UserId";
                     using (var command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Name", category.Name);
                         command.Parameters.AddWithValue("@Id", category.Id);
-                        await command.ExecuteNonQueryAsync();
+                        command.Parameters.AddWithValue("@UserId", category.UserId); // Voeg de UserId parameter toe
+                        var result = await command.ExecuteNonQueryAsync();
+                        // Controleer of er daadwerkelijk een rij is bijgewerkt
+                        return result > 0;
                     }
                 }
-                return true;
             }
             catch (Exception ex)
             {
@@ -117,7 +125,8 @@ namespace Novel_Nest_DAL
                 return false;
             }
         }
-		public async Task<bool> IsCategoryInUseAsync(int categoryId)
+
+        public async Task<bool> IsCategoryInUseAsync(int categoryId)
 		{
 			try
 			{
