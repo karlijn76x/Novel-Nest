@@ -1,8 +1,5 @@
 ﻿@using Models
 @model CategoryViewModel
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
 	ViewData["Title"] = "Category";
 }
@@ -34,15 +31,13 @@
 				<li>
 					<div class="categoryTitle">
 					@category.Name</div>
-					
-					
 					<form method="post" action="@Url.Action("EditCategory", "Category")">
 						<input type="hidden" name="_method" value="PUT" />
 						<input type="hidden" name="Id" value="@category.Id" />
 						<div class="edit-field">
 							<input type="text" placeholder="Name of the category" name="Name" value="@category.Name" required />
 						</div>
-						<button type="submit" class="btn btn-success">Edit</button>
+						<button type="submit" class="btn btn-success">Save</button>
 					</form>
 					<form method="post" action="@Url.Action("DeleteCategory", "Category")">
 						<input type="hidden" name="Id" value="@category.Id" />
@@ -77,5 +72,4 @@
 	</script>
 
 </body>
-
 </html>

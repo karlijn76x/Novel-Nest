@@ -5,15 +5,24 @@ using Microsoft.Extensions.Logging;
 
 namespace Novel_Nest_DAL
 {
-	public class UserDB : IUserDB
+	public class UserRepository : IUserRepository
 	{
 		private readonly string _connectionString;
 		
 
-		public UserDB(string connectionString)
+		public UserRepository(string connectionString)
 		{
 			_connectionString = connectionString;
 			
+		}
+		public async Task<string> GetUserNameByIdAsync(int userId)
+		{
+			await using var connection = new MySqlConnection(_connectionString);
+			await connection.OpenAsync();
+			using var command = new MySqlCommand("SELECT Name FROM user WHERE Id = @UserId", connection);
+			command.Parameters.AddWithValue("@userId", userId);
+			var result = await command.ExecuteScalarAsync();
+			return result?.ToString();
 		}
 
         public async Task<bool> CreateUserAsync(UserModelDTO user)
@@ -23,15 +32,15 @@ namespace Novel_Nest_DAL
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    var query = "INSERT INTO user (Name, Age, Email, Password) VALUES (@Name, @Age, @Email, @Password)";
+                    var query = "INSERT INTO user (Name, Age, Email, Password, Role) VALUES (@Name, @Age, @Email, @Password, @Role)";
                     using (var command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Name", user.Name);
                         command.Parameters.AddWithValue("@Age", user.Age);
                         command.Parameters.AddWithValue("@Email", user.Email);
-                        // Hash het wachtwoord voordat het wordt opgeslagen
                         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
                         command.Parameters.AddWithValue("@Password", hashedPassword);
+                        command.Parameters.AddWithValue("@Role", user.Role); 
 
                         await command.ExecuteNonQueryAsync();
                     }
@@ -40,19 +49,19 @@ namespace Novel_Nest_DAL
             }
             catch (Exception ex)
             {
-                // Log de uitzondering of handel deze af
+                
                 return false;
             }
         }
 
-        public async Task<(bool isAuthenticated, string Name, int Id)> AuthenticateUserAsync(string email, string password)
+        public async Task<(bool isAuthenticated, string Name, int Id, string Role)> AuthenticateUserAsync(string email, string password)
         {
             try
             {
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    var query = "SELECT Id, Name, Password FROM user WHERE Email = @Email";
+                    var query = "SELECT Id, Name, Password, Role FROM user WHERE Email = @Email";
                     using (var command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Email", email);
@@ -64,11 +73,11 @@ namespace Novel_Nest_DAL
                                 var storedUserId = reader.GetInt32("Id");
                                 var storedUserName = reader.IsDBNull(reader.GetOrdinal("Name")) ? "" : reader.GetString("Name");
                                 var storedPassword = reader.GetString("Password");
+                                var storedRole = reader.GetString("Role");
 
-                                // Verifieer het gehashte wachtwoord
                                 if (BCrypt.Net.BCrypt.Verify(password, storedPassword))
                                 {
-                                    return (true, storedUserName, storedUserId);
+                                    return (true, storedUserName, storedUserId, storedRole);
                                 }
                             }
                         }
@@ -80,8 +89,9 @@ namespace Novel_Nest_DAL
                 // Log de uitzondering of handel deze af
                 throw;
             }
-            return (false, "", -1);
+            return (false, "", -1, "");
         }
+
 
     }
 }

@@ -8,10 +8,12 @@ namespace Novel_Nest.Controllers
     public class BookshelfController : Controller
     {
         private readonly BookService _bookService;
+        private readonly UserService _userService;
 
-        public BookshelfController(BookService bookService)
+        public BookshelfController(BookService bookService, UserService userService)
         {
             _bookService = bookService;
+            _userService = userService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -22,7 +24,7 @@ namespace Novel_Nest.Controllers
                 return RedirectToAction("LoginPage", "Home");
             }
             var books = _bookService.GetBooks(userId.Value);
-            var userName = await _bookService.GetUserNameAsync(userId.Value);
+            var userName = await _userService.GetUserNameAsync(userId.Value);
 
             var model = new BooksViewModel
             {

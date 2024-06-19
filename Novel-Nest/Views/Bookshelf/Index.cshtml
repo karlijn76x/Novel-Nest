@@ -13,11 +13,14 @@
     <title>Novel Nest</title>
 </head>
 <body>
-    <h1>Hello @Model.UserName, welcome to your library!</h1>
+    <h1>Hi @Model.UserName, welcome to your library!</h1>
     <p>Add new books, add categories</p>
     <input class="btn" type="button" value="Create new category" onclick="location.href='@Url.Action("Category", "Category")'" />
     <input class="btn" type="button" value="Add new book" onclick="location.href='@Url.Action("NewBook", "Book")'" />
     <input class="btn" type="button" value="Edit books" onclick="location.href='@Url.Action("EditBook", "Book")'" />
+    <div class="Searchbar">
+        <input type="text" class="search-bar" id="searchInput" placeholder="Zoek boek">
+    </div>
     <div class="book-list">
         @foreach (var book in Model.Books)
         {
@@ -35,3 +38,19 @@
 
 </body>
 </html>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const books = document.querySelectorAll('.books');
+
+    searchInput.addEventListener('input', function () {
+        const searchTerm = searchInput.value.trim().toLowerCase(); // Haal de zoekterm op en converteer naar lowercase
+
+        books.forEach(function (book) {
+			if (book.innerText.toLowerCase().includes(searchTerm)) {
+				book.style.display = 'block';
+			} else {
+				book.style.display = 'none';
+			}
+		});
+    });
+</script>

@@ -17,7 +17,7 @@ builder.Services.AddScoped<UserService>();
 
 builder.Services.AddSingleton<IBookRepository>(new BookRepository(ConnectionString));
 builder.Services.AddSingleton<ICategoryRepository>(new CategoryRepository(ConnectionString));
-builder.Services.AddSingleton<IUserDB>(new UserDB(ConnectionString));
+builder.Services.AddSingleton<IUserRepository>(new UserRepository(ConnectionString));
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<CategoryService>();

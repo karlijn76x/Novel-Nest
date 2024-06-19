@@ -37,7 +37,6 @@ namespace Novel_Nest_DAL
             }
         }
 
-
         public List<CategoryDTO> GetCategories(int userId)
         {
             try
@@ -74,7 +73,6 @@ namespace Novel_Nest_DAL
                 return new List<CategoryDTO>(); // Lege lijst retourneren in geval van fout
             }
         }
-
 
         public async Task<bool> DeleteCategoryAsync(int Id)
         {
@@ -148,6 +146,5 @@ namespace Novel_Nest_DAL
 				return false;
 			}
 		}
-
 	}
 }

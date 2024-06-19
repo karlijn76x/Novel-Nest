@@ -12,7 +12,7 @@ html {
 }
 
 .btn {
-    background-color: #9775fa; /* Knopkleur */
+    background-color: #9775fa;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -21,7 +21,7 @@ html {
 }
 
     .btn:hover {
-        background-color: #b197fc; /* Knopkleur bij hover */
+        background-color: #b197fc;
     }
 
 .book-list {
@@ -48,3 +48,29 @@ html {
     width: 2.3em;
     border: none;
 }
+
+.Searchbar {
+    justify-content: end;
+    display: flex
+}
+
+.search-bar {
+    padding: 12px 20px; 
+    height: 2em;
+    margin: 1em; 
+    display: inline-block; 
+    border: 1px solid #808080; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    font-size: 16px;
+    background-color: white;
+    background: url('../Images/search.svg') no-repeat left center; 
+    background-position-x: 10px;
+    background-size: 3vh;
+    padding-left: 40px;
+}
+
+.search-bar:focus {
+ border-color: #9775fa;
+ outline: none;       
+}    

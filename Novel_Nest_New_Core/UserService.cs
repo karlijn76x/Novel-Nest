@@ -1,24 +1,29 @@
 ﻿
 using Interfaces;
+using Novel_Nest_DAL;
 
 namespace Novel_Nest_Core
 {
     public class UserService
     {
-        private readonly IUserDB _userDB;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IUserDB userDB)
+        public UserService(IUserRepository userRepository)
         {
-            _userDB = userDB;
+            _userRepository = userRepository;
         }
-        public async Task<(bool isAuthenticated, string Name, int Id)> AuthenticateUserAsync(string email, string password)
+		public async Task<string> GetUserNameAsync(int userId)
+		{
+			return await _userRepository.GetUserNameByIdAsync(userId);
+		}
+        public async Task<(bool isAuthenticated, string Name, int Id, string Role)> AuthenticateUserAsync(string email, string password)
         {
-            return await _userDB.AuthenticateUserAsync(email, password);
+            return await _userRepository.AuthenticateUserAsync(email, password);
         }
 
         public async Task<bool> CreateUserAsync(UserModelDTO user)
         {
-            return await _userDB.CreateUserAsync(user);
+            return await _userRepository.CreateUserAsync(user);
         }
     }
 }

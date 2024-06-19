@@ -141,50 +141,50 @@ namespace Novel_Nest.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SearchBooks(string query)
-        {
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                return Json(new { success = false, message = "Query cannot be empty." });
-            }
+        //[HttpGet]
+        //public async Task<IActionResult> SearchBooks(string query)
+        //{
+        //    if (string.IsNullOrWhiteSpace(query))
+        //    {
+        //        return Json(new { success = false, message = "Query cannot be empty." });
+        //    }
 
-            var searchResult = await _apiService.SearchBooksAsync(query);
-            if (searchResult == null || searchResult.Docs == null || !searchResult.Docs.Any())
-            {
-                return Json(new { success = false, message = "No books found." });
-            }
+        //    var searchResult = await _apiService.SearchBooksAsync(query);
+        //    if (searchResult == null || searchResult.Docs == null || !searchResult.Docs.Any())
+        //    {
+        //        return Json(new { success = false, message = "No books found." });
+        //    }
 
-            return Json(new { success = true, books = searchResult.Docs });
-        }
+        //    return Json(new { success = true, books = searchResult.Docs });
+        //}
 
 
-        [HttpPost]
-        public async Task<IActionResult> AddBookFromSearch(string olid)
-        {
-            var userId = HttpContext.Session.GetInt32("UserId");
-            if (userId == null)
-            {
-                return Json(new { success = false, message = "User not logged in." });
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> AddBookFromSearch(string olid)
+        //{
+        //    var userId = HttpContext.Session.GetInt32("UserId");
+        //    if (userId == null)
+        //    {
+        //        return Json(new { success = false, message = "User not logged in." });
+        //    }
 
-            var book = await _apiService.SearchBooksAsync(olid);
-            if (book == null || book.Docs == null || !book.Docs.Any())
-            {
-                return Json(new { success = false, message = "Book not found." });
-            }
+        //    var book = await _apiService.SearchBooksAsync(olid);
+        //    if (book == null || book.Docs == null || !book.Docs.Any())
+        //    {
+        //        return Json(new { success = false, message = "Book not found." });
+        //    }
 
-            var firstBook = book.Docs.First();
-            var addSuccess = await _bookService.AddBookFromSearchAsync(firstBook, userId.Value);
-            if (addSuccess)
-            {
-                return Json(new { success = true, message = "Book added successfully." });
-            }
-            else
-            {
-                return Json(new { success = false, message = "Failed to add the book." });
-            }
-        }
+        //    var firstBook = book.Docs.First();
+        //    var addSuccess = await _bookService.AddBookFromSearchAsync(firstBook, userId.Value);
+        //    if (addSuccess)
+        //    {
+        //        return Json(new { success = true, message = "Book added successfully." });
+        //    }
+        //    else
+        //    {
+        //        return Json(new { success = false, message = "Failed to add the book." });
+        //    }
+        //}
 
 
 

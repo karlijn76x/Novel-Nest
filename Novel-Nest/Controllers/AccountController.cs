@@ -18,13 +18,23 @@ namespace Novel_Nest.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var (isAuthenticated, Name, Id) = await _userService.AuthenticateUserAsync(email, password);
+            var (isAuthenticated, Name, Id, Role) = await _userService.AuthenticateUserAsync(email, password);
 
             if (isAuthenticated)
             {
                 HttpContext.Session.SetInt32("UserId", Id);
                 HttpContext.Session.SetString("UserName", Name);
-                return RedirectToAction("Index", "Bookshelf");
+                HttpContext.Session.SetString("UserRole", Role);
+
+                
+                if (Role == "Admin")
+                {
+                    return RedirectToAction("AdminIndex", "Admin"); 
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bookshelf");
+                }
             }
             else
             {
@@ -33,6 +43,7 @@ namespace Novel_Nest.Controllers
                 return RedirectToAction("LoginPage", "Home");
             }
         }
+
 
         [HttpPost]
         public IActionResult Logout()

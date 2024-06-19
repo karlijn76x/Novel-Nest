@@ -1,6 +1,5 @@
 ﻿@using Models
 @model CategoryViewModel
-
 @{
 	ViewData["Title"] = "AddBook";
 }
@@ -10,7 +9,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-
 	<link rel="stylesheet" type="" href="~/css/NewBook.css" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -34,8 +32,16 @@
         </div>
 		<button class="btn" type="submit" class="btnAdd">Add your own book</button>
     </form>
+    <p>Or you can search for a book in our open library here and add this to your own library!</p>
+    <form id="searchForm" method="post" action="@Url.Action("SearchBooks", "Book")">
+        <div class="create-field">
+            <input type="text" placeholder="Search by book title or author" name="query" required />
+        </div>
+        <button class="btn" type="submit">Search Books</button>
+    </form>
 </body>
-    </html>
+</html>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var message = '@TempData["Message"]';
@@ -59,14 +65,6 @@
     });
 </script>
 	@* 
-    <p>Or you can search for a book in our open library here and add this to your own library!</p>
-    <form id="searchForm" method="post" action="@Url.Action("SearchBooks", "Book")">
-        <div class="create-field">
-            <input type="text" placeholder="Search by book title or author" name="query" required />
-        </div>
-        <button class="btn" type="submit">Search Books</button>
-    </form>
-</body>
 
 <script>
     $(document).ready(function () {

@@ -9,9 +9,7 @@ namespace Interfaces
 {
 	public interface IBookRepository
 	{
-		public Task<string> GetUserNameByIdAsync(int userId);
         public Task<bool> AddBookAsync(BookDTO book);
-		//public List<CategoryDTO> GetCategories();
 		public List<BookDTO> GetBooks(int userId);
 		public Task<BookDTO> GetBookByUserIdAndBookId(int userId, int bookId);
         public Task<bool> DeleteBookAsync(int Id);
@@ -20,7 +18,7 @@ namespace Interfaces
 		public List<NightstandBookDTO> GetNightstandBooks(int userId);
 		public Task<bool> DeleteNightstandBookAsync(int bookId);
 		public Task<bool> IsBookInNightstandAsync(int bookId);
-		public Task<bool> AddBookFromApiAsync(BookDTO book);
+		//public Task<bool> AddBookFromApiAsync(BookDTO book);
 		public Task<NightstandBookDTO> GetNightstandBookByUserIdAndBookId(int userId, int bookId);
         public Task<bool> ReviewNightstandBookAsync(NightstandBookDTO nightstandBook);
 
