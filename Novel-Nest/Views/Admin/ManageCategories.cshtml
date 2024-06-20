@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Novel Nest</title>
 </head>
-<h2>Beheer Categorieën</h2>
+<h2>Manage categories</h2>
 
 <table>
     @foreach (var category in Model.Category)
@@ -24,6 +24,8 @@
         </tr>
     }
 </table>
+
+
 
 <script>
     function confirmDelete(categoryId) {

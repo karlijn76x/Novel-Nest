@@ -176,6 +176,119 @@ namespace Novel_Nest_DAL
 			}
 		}
 
+        public async Task<bool> AddDefaultCategoryAsync(CategoryDTO category)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    var query = "INSERT INTO category (Name, UserId, IsDefault) VALUES (@Name, @UserId, @IsDefault)";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Name", category.Name);
+                        command.Parameters.AddWithValue("@UserId", category.UserId);
+                        command.Parameters.AddWithValue("@IsDefault", true); 
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating default category: {ex.Message}");
+                return false;
+            }
+        }
+
+		public async Task<List<CategoryDTO>> GetDefaultCategoriesAsync()
+		{
+			var categories = new List<CategoryDTO>();
+			try
+			{
+				using (var connection = new MySqlConnection(_connectionString))
+				{
+					await connection.OpenAsync();
+					var query = @"
+                SELECT Id, Name
+                FROM category
+                WHERE IsDefault = true";
+					using (var command = new MySqlCommand(query, connection))
+					{
+						using (var reader = command.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								categories.Add(new CategoryDTO
+								{
+									Id = reader.GetInt32("Id"),
+									Name = reader.GetString("Name"),
+									IsDefault = true
+								});
+							}
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error retrieving default categories: {ex.Message}");
+			}
+			return categories;
+		}
+
+		public async Task<bool> EditDefaultCategoryAsync(CategoryDTO category)
+		{
+			try
+			{
+				using (var connection = new MySqlConnection(_connectionString))
+				{
+					await connection.OpenAsync();
+					var query = @"
+                UPDATE category
+                SET Name = @Name
+                WHERE Id = @Id AND IsDefault = true";
+
+					using (var command = new MySqlCommand(query, connection))
+					{
+						command.Parameters.AddWithValue("@Name", category.Name);
+						command.Parameters.AddWithValue("@Id", category.Id);
+
+						var result = await command.ExecuteNonQueryAsync();
+						return result > 0;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error editing default category: {ex.Message}");
+				return false;
+			}
+		}
+
+		public async Task<bool> DeleteDefaultCategoryAsync(int categoryId)
+		{
+			try
+			{
+				using (var connection = new MySqlConnection(_connectionString))
+				{
+					await connection.OpenAsync();
+					var query = "DELETE FROM category WHERE Id = @Id AND IsDefault = true";
+
+					using (var command = new MySqlCommand(query, connection))
+					{
+						command.Parameters.AddWithValue("@Id", categoryId);
+						var result = await command.ExecuteNonQueryAsync();
+						return result > 0;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error deleting default category: {ex.Message}");
+				return false;
+			}
+		}
 
 	}
 }

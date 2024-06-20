@@ -67,35 +67,41 @@ namespace Novel_Nest.Controllers
 
 
         [HttpPost]
-		public async Task<IActionResult> DeleteCategory(int Id)
-		{
-			try
-			{
-				bool isCategoryInUse = await _categoryService.IsCategoryInUseAsync(Id);
-				if (isCategoryInUse)
-				{
-					TempData["ErrorMessage"] = "Cannot delete category because it is in use.";
-					return RedirectToAction("Category");
-				}
+        public async Task<IActionResult> DeleteCategory(int Id)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return RedirectToAction("LoginPage", "Home");
+            }
 
-				var success = await _categoryService.DeleteCategoryAsync(Id);
-				if (success)
-				{
-					TempData["Message"] = "Category successfully deleted.";
-					return RedirectToAction("Category");
-				}
-				else
-				{
-					TempData["ErrorMessage"] = "Failed to delete category.";
-					return RedirectToAction("Category");
-				}
-			}
-			catch (Exception ex)
-			{
-				TempData["ErrorMessage"] = "Failed to delete category. " + ex.Message;
-				return RedirectToAction("Category");
-			}
-		}
+            try
+            {
+                bool isCategoryInUse = await _categoryService.IsCategoryInUseAsync(Id);
+                if (isCategoryInUse)
+                {
+                    TempData["ErrorMessage"] = "Cannot delete category because it is in use.";
+                    return RedirectToAction("Category");
+                }
+
+                var success = await _categoryService.DeleteCategoryAsync(Id, userId.Value);
+                if (success)
+                {
+                    TempData["Message"] = "Category successfully deleted.";
+                    return RedirectToAction("Category");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to delete category.";
+                    return RedirectToAction("Category");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Failed to delete category. " + ex.Message;
+                return RedirectToAction("Category");
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> EditCategoryAsync(CategoryDTO category)
@@ -126,6 +132,5 @@ namespace Novel_Nest.Controllers
                 return RedirectToAction("Category");
             }
         }
-
     }
 }

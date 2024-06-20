@@ -1,2 +1,12 @@
 ﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #e5dbff;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }

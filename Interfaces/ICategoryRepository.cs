@@ -11,8 +11,8 @@ namespace Interfaces
 	{
         Task<bool> AddCategoryAsync(CategoryDTO category);
         List<CategoryDTO> GetCategories(int userId);
-        Task<bool> DeleteCategoryAsync(int Id);
-        Task<bool> EditCategoryAsync(CategoryDTO category);
+        public Task<bool> DeleteCategoryAsync(int Id, int userId);
+        public Task<bool> EditCategoryAsync(CategoryDTO category);
 		public Task<bool> IsCategoryInUseAsync(int categoryId);
 
 	}

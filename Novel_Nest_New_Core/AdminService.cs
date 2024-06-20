@@ -38,6 +38,24 @@ namespace Novel_Nest_Core
 			return await _adminRepository.DeleteBookAsync(bookId, userId);
 		}
 
+        public async Task<bool> AddDefaultCategoryAsync(CategoryDTO category)
+        {
+            return await _adminRepository.AddDefaultCategoryAsync(category);
+        }
+
+		public async Task<List<CategoryDTO>> GetDefaultCategoriesAsync()
+		{
+			return await _adminRepository.GetDefaultCategoriesAsync();
+		}
+
+        public async Task<bool> EditDefaultCategoryAsync(CategoryDTO category)
+		{
+			return await _adminRepository.EditDefaultCategoryAsync(category);
+		}
+        public async Task<bool> DeleteDefaultCategoryAsync(int categoryId)
+		{
+			return await _adminRepository.DeleteDefaultCategoryAsync(categoryId);
+		}
 
 	}
 }
