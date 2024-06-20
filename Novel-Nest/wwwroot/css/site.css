@@ -97,7 +97,6 @@ body {
     justify-content: flex-end; 
 }
 
-/* site.css */
 .navbar-admin {
     background-color: #004085;
 }
@@ -109,6 +108,30 @@ body {
         .navbar-admin .nav-link:hover {
             color: #f8f9fa;
         }
+
+.navbar .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,.1);
+    border-radius: .25rem;
+}
+
+.navbar .dropdown-item .btn-link {
+    color: white; 
+    background-color: #7950f2;
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    text-decoration: none;
+    display: block; 
+    width: 100%; 
+    text-align: left; 
+}
+
+.navbar .dropdown-item .btn-link:hover {
+    background-color: #b197fc; 
+}
+.nav-item.dropdown > .btnNavbar {
+    color: #ffffff; 
+}
 
 
 

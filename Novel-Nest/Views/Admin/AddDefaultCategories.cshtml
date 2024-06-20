@@ -23,6 +23,9 @@
 		<button type="submit" class="btnAdd">Add category</button>
 	</form>
 	</br>
+	<div class="Searchbar">
+		<input type="text" class="search-bar" id="searchInput" placeholder="Search category">
+	</div>
 	@if (Model.Category != null && Model.Category.Any())
 	{
 		<h3>Default Categories</h3>
@@ -73,6 +76,23 @@
 					confirmButtonText: 'Ok'
 				});
 			}
+		});
+
+	</script>
+	<script>
+		const searchInput = document.getElementById('searchInput');
+		const categories = document.querySelectorAll('.list-item');
+
+		searchInput.addEventListener('input', function () {
+			const searchTerm = searchInput.value.trim().toLowerCase();
+
+			categories.forEach(function (category) {
+				if (category.innerText.toLowerCase().includes(searchTerm)) {
+					category.style.display = 'block';
+				} else {
+					category.style.display = 'none';
+				}
+			});
 		});
 	</script>
 

@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\EditDefaultCategories.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\ManageBooks.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\ManageCategories.css" />
   </ItemGroup>
 

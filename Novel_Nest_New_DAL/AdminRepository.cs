@@ -87,10 +87,10 @@ namespace Novel_Nest_DAL
                 {
                     await connection.OpenAsync();
                     var query = @"
-            SELECT b.Id, b.Title, b.Author, c.Name AS CategoryName, u.Name AS UserName
-            FROM book b
-            JOIN category c ON b.CategoryId = c.Id
-            JOIN user u ON b.UserId = u.Id";
+            SELECT b.Id, b.Title, b.Author, b.UserId, c.Name AS CategoryName, u.Name AS UserName
+FROM book b
+JOIN category c ON b.CategoryId = c.Id
+JOIN user u ON b.UserId = u.Id ";
                     using (var command = new MySqlCommand(query, connection))
                     {
                         using (var reader = command.ExecuteReader())
@@ -103,7 +103,8 @@ namespace Novel_Nest_DAL
                                     Title = reader.GetString("Title"),
                                     Author = reader.GetString("Author"),
                                     CategoryName = reader.GetString("CategoryName"),
-                                    UserName = reader.GetString("UserName")
+                                    UserName = reader.GetString("UserName"),
+                                    UserId = reader.GetInt32("UserId")
                                 });
                             }
                         }

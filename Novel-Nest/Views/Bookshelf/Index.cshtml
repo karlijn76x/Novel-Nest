@@ -19,7 +19,7 @@
     <input class="btn" type="button" value="Add new book" onclick="location.href='@Url.Action("NewBook", "Book")'" />
     <input class="btn" type="button" value="Edit books" onclick="location.href='@Url.Action("EditBook", "Book")'" />
     <div class="Searchbar">
-        <input type="text" class="search-bar" id="searchInput" placeholder="Zoek boek">
+        <input type="text" class="search-bar" id="searchInput" placeholder="Search book">
     </div>
     <div class="book-list">
         @foreach (var book in Model.Books)

@@ -83,22 +83,23 @@ namespace Novel_Nest.Controllers
 			return RedirectToAction("ManageBooks");
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> DeleteBook(int bookId, int userId)
-		{
-			var success = await _adminService.DeleteBookAsync(bookId, userId);
-			if (success)
-			{
-				TempData["SuccessMessage"] = "Book successfully deleted.";
-			}
-			else
-			{
-				TempData["ErrorMessage"] = "An error occurred while deleting the book.";
-			}
-			return RedirectToAction("ManageBooks");
-		}
+        [HttpPost]
+        public async Task<IActionResult> DeleteBook(int bookId, int userId)
+        {
+            var success = await _adminService.DeleteBookAsync(bookId, userId);
+            if (success)
+            {
+                TempData["SuccessMessage"] = "Book successfully deleted.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "An error occurred while deleting the book.";
+            }
+            return RedirectToAction("ManageBooks");
+        }
 
-		public async Task<IActionResult> AddDefaultCategories()
+
+        public async Task<IActionResult> AddDefaultCategories()
 		{
 			var defaultCategories = await _adminService.GetDefaultCategoriesAsync();
 			var model = new DefaultCategoryViewModel

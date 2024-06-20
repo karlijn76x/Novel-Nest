@@ -30,13 +30,17 @@
                                 <a class="nav-link dropdown-toggle btnNavbar" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Manage Categories
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <form asp-area="" asp-controller="Admin" asp-action="ManageCategories" method="get" class="dropdown-item">
-                                        <button type="submit" class="btn btn-link">Manage Categories</button>
-                                    </form>
-                                    <form asp-area="" asp-controller="Admin" asp-action="AddDefaultCategories" method="get" class="dropdown-item">
-                                        <button type="submit" class="btn btn-link">Add Default Categories</button>
-                                    </form>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item">
+                                        <form asp-area="" asp-controller="Admin" asp-action="ManageCategories" method="get">
+                                            <button type="submit" class="btn btn-link">Manage Categories</button>
+                                        </form>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <form asp-area="" asp-controller="Admin" asp-action="AddDefaultCategories" method="get">
+                                            <button type="submit" class="btn btn-link">Add Default Categories</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </li>
 

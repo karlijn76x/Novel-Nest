@@ -11,27 +11,31 @@
     <title>Novel Nest</title>
 </head>
 <h2>Manage categories</h2>
-
-<table class ="table">
-    @foreach (var category in Model.Category)
-    {
-        
-			<thead>
-				<tr>
-					<th scope="col">Category</th>
-					<th scope="col">User</th>
-					<th scope="col">Actions</th>
-				</tr>
-			</thead>
+<div class="Searchbar">
+    <input type="text" class="search-bar" id="searchInput" placeholder="Filter" />
+</div>
+<table class="table">
+    <thead>
         <tr>
-            <td>@category.Name</td>
-            <td>@category.UserName</td>
-            <td>
-                <button onclick="confirmDelete('@category.Id')" class="btn btn-danger">Delete</button>
-            </td>
+            <th scope="col">Category</th>
+            <th scope="col">User</th>
+            <th scope="col">Actions</th>
         </tr>
-    }
-</>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Category)
+        {
+            <tr class="category-row">
+                <td>@category.Name</td>
+                <td>@category.UserName</td>
+                <td>
+                    <button onclick="confirmDelete('@category.Id')" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 
 
 
@@ -70,3 +74,24 @@
     }
 
 </script>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+    const categoryRows = document.querySelectorAll('.category-row');
+
+    searchInput.addEventListener('input', function () {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+
+        categoryRows.forEach(function (row) {
+            const categoryName = row.cells[0].textContent.toLowerCase();
+            const userName = row.cells[1].textContent.toLowerCase();
+            if (categoryName.includes(searchTerm) || userName.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+
