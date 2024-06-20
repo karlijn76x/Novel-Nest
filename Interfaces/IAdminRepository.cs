@@ -18,6 +18,5 @@ namespace Interfaces
         public Task<List<CategoryDTO>> GetDefaultCategoriesAsync();
         public Task<bool> EditDefaultCategoryAsync(CategoryDTO category);
         public Task<bool> DeleteDefaultCategoryAsync(int categoryId);
-
 	}
 }

@@ -19,7 +19,8 @@ namespace Novel_Nest.Controllers
             _apiService = apiService;
             _categoryService = categoryService;
         }
-        public IActionResult NewBook()
+        [HttpGet]
+        public async Task<IActionResult> NewBook()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null)
@@ -27,7 +28,7 @@ namespace Novel_Nest.Controllers
                 return RedirectToAction("LoginPage", "Home");
             }
 
-            var categories = _categoryService.GetCategories(userId.Value);
+            var categories = await _categoryService.GetUserAndDefaultCategoriesAsync(userId.Value);
 
             var model = new CategoryViewModel
             {
@@ -68,7 +69,7 @@ namespace Novel_Nest.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult EditBook()
+		public async Task<IActionResult> EditBook()
 		{
 			var userId = HttpContext.Session.GetInt32("UserId");
 			if (userId == null)
@@ -76,7 +77,7 @@ namespace Novel_Nest.Controllers
 				return RedirectToAction("LoginPage", "Home");
 			}
 
-			var categories = _categoryService.GetCategories(userId.Value);
+			var categories = await _categoryService.GetUserAndDefaultCategoriesAsync(userId.Value);
 			var books = _bookService.GetBooks(userId.Value); 
 
 			var model = new EditBookViewModel

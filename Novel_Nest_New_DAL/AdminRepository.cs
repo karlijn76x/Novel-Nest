@@ -16,7 +16,7 @@ namespace Novel_Nest_DAL
             _connectionString = connectionString;
         }
 
-        public async Task<List<CategoryDTO>> GetAllCategoriesFromUsersAsync()
+		public async Task<List<CategoryDTO>> GetAllCategoriesFromUsersAsync()
         {
             var categories = new List<CategoryDTO>();
             try
@@ -77,8 +77,6 @@ namespace Novel_Nest_DAL
                 return false;
             }
         }
-
-        // In AdminRepository.cs
 
         public async Task<List<BookDTO>> GetAllBooksAsync()
         {

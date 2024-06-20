@@ -56,6 +56,6 @@ namespace Novel_Nest_Core
 		{
 			return await _adminRepository.DeleteDefaultCategoryAsync(categoryId);
 		}
-
+        
 	}
 }

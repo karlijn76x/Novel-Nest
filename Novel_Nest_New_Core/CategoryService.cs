@@ -22,8 +22,11 @@ namespace Novel_Nest_Core
         {
             return _categoryRepository.GetCategories(userId);
         }
-
-        public async Task<bool> DeleteCategoryAsync(int Id, int UserId)
+		public async Task<List<CategoryDTO>> GetUserAndDefaultCategoriesAsync(int userId)
+		{
+			return await _categoryRepository.GetUserAndDefaultCategoriesAsync(userId);
+		}
+		public async Task<bool> DeleteCategoryAsync(int Id, int UserId)
         {
             return await _categoryRepository.DeleteCategoryAsync(Id, UserId);
         }

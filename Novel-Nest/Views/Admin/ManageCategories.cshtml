@@ -12,9 +12,17 @@
 </head>
 <h2>Manage categories</h2>
 
-<table>
+<table class ="table">
     @foreach (var category in Model.Category)
     {
+        
+			<thead>
+				<tr>
+					<th scope="col">Category</th>
+					<th scope="col">User</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
         <tr>
             <td>@category.Name</td>
             <td>@category.UserName</td>
@@ -23,7 +31,7 @@
             </td>
         </tr>
     }
-</table>
+</>
 
 
 

@@ -29,23 +29,28 @@ namespace Novel_Nest.Controllers
             };
             return View(model);
         }
-        public async Task<IActionResult> ManageBooks()
-        {
-            if (HttpContext.Session.GetString("UserRole") != "Admin")
-            {
-                return RedirectToAction("LoginPage", "Home");
-            }
-            var books = await _adminService.GetAllBooksAsync(); 
-            var categories = await _adminService.GetAllCategoriesAsync(); 
-            var model = new BookUserViewModel
-            {
-                Books = books,
-                Categories = categories 
-            };
-            return View(model);
-        }
+		public async Task<IActionResult> ManageBooks()
+		{
+			if (HttpContext.Session.GetString("UserRole") != "Admin")
+			{
+				return RedirectToAction("LoginPage", "Home");
+			}
+			var books = await _adminService.GetAllBooksAsync();
+			var userCategories = await _adminService.GetAllCategoriesAsync();
+			var defaultCategories = await _adminService.GetDefaultCategoriesAsync();
 
-        [HttpPost]
+			var allCategories = userCategories.Concat(defaultCategories).ToList();
+
+			var model = new BookUserViewModel
+			{
+				Books = books,
+				Categories = allCategories 
+			};
+			return View(model);
+		}
+
+
+		[HttpPost]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {
             var success = await _adminService.DeleteCategoryAsync(categoryId);

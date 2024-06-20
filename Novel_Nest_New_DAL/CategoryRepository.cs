@@ -74,7 +74,33 @@ namespace Novel_Nest_DAL
             }
         }
 
-        public async Task<bool> DeleteCategoryAsync(int Id, int userId)
+		public async Task<List<CategoryDTO>> GetUserAndDefaultCategoriesAsync(int userId)
+		{
+			var categories = new List<CategoryDTO>();
+			using (var connection = new MySqlConnection(_connectionString))
+			{
+				await connection.OpenAsync();
+				using (var command = new MySqlCommand("SELECT Id, Name, UserId FROM category WHERE UserId = @UserId OR UserId IS NULL", connection))
+				{
+					command.Parameters.AddWithValue("@UserId", userId);
+					using (var reader = await command.ExecuteReaderAsync())
+					{
+						while (await reader.ReadAsync())
+						{
+							categories.Add(new CategoryDTO
+							{
+								Id = reader.GetInt32("Id"),
+								Name = reader.GetString("Name"),
+								UserId = reader.IsDBNull(reader.GetOrdinal("UserId")) ? null : reader.GetInt32("UserId")
+							});
+						}
+					}
+				}
+			}
+			return categories;
+		}
+
+		public async Task<bool> DeleteCategoryAsync(int Id, int userId)
         {
             try
             {
