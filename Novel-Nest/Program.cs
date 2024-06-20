@@ -18,10 +18,12 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddSingleton<IBookRepository>(new BookRepository(ConnectionString));
 builder.Services.AddSingleton<ICategoryRepository>(new CategoryRepository(ConnectionString));
 builder.Services.AddSingleton<IUserRepository>(new UserRepository(ConnectionString));
+builder.Services.AddSingleton<IAdminRepository>(new AdminRepository(ConnectionString));
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<APIService>();
+builder.Services.AddScoped<AdminService>();
 
 builder.Services.AddHttpClient();
 

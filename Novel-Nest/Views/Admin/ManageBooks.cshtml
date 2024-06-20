@@ -1,0 +1,40 @@
+﻿@using Novel_Nest.Models
+@model BookUserViewModel
+
+@{
+    ViewData["Title"] = "Manage Books";
+}
+
+<h1>Manage Books</h1>
+
+<div class="list-group-books">
+    @foreach (var book in Model.Books) 
+    {
+        <ul class="list-item">
+            <li>
+                <div class="bookTitle">@book.Title by @book.Author. Current category: @book.CategoryName User: @book.UserName</div>
+
+                <form method="post" action="@Url.Action("EditBook", "Admin")">
+                    <input type="hidden" name="Id" value="@book.Id" />
+                    <input type="hidden" name="UserId" value="@book.UserId" />
+                    <div class="edit-field">
+                        <input type="text" placeholder="Title" name="Title" value="@book.Title" required />
+                        <input type="text" placeholder="Author" name="Author" value="@book.Author" required />
+                        <select name="CategoryId" required>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </form>
+                <form method="post" action="@Url.Action("DeleteBook", "Admin")">
+                    <input type="hidden" name="bookId" value="@book.Id" />
+                    <input type="hidden" name="userId" value="@book.UserId" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </li>
+        </ul>
+    }
+</div>

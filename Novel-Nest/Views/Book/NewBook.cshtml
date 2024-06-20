@@ -17,7 +17,7 @@
 	<title>Novel Nest</title>
 </head>
 <body>
-	<p>Hello let's add a new book to your collection!'</p>
+	<H2>Let's add a new book to your collection!</H2>
     <p>Fill in the details below to add a new book to your collection yourself.</p>
     <form method="post" action="@Url.Action("AddBook", "Book")">
         <div class="create-field">
@@ -31,14 +31,15 @@
             </select>
         </div>
 		<button class="btn" type="submit" class="btnAdd">Add your own book</button>
-    </form>
+        </form>
+    @* </form>
     <p>Or you can search for a book in our open library here and add this to your own library!</p>
     <form id="searchForm" method="post" action="@Url.Action("SearchBooks", "Book")">
         <div class="create-field">
             <input type="text" placeholder="Search by book title or author" name="query" required />
         </div>
         <button class="btn" type="submit">Search Books</button>
-    </form>
+    </form> *@
 </body>
 </html>
 

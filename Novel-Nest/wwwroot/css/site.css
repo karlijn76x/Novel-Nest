@@ -97,5 +97,18 @@ body {
     justify-content: flex-end; 
 }
 
+/* site.css */
+.navbar-admin {
+    background-color: #004085;
+}
+
+    .navbar-admin .nav-link {
+        color: #ffffff; 
+    }
+
+        .navbar-admin .nav-link:hover {
+            color: #f8f9fa;
+        }
+
 
 

@@ -22,5 +22,6 @@ namespace Models
         public string Review { get; set; } = string.Empty;
         public bool Finished { get; set; } = false;
 		public int BookId { get; set; }
+		public string UserName { get; set; } = string.Empty;
     }
 }
