@@ -63,7 +63,7 @@ namespace UnitTest_Novel_Nest
 			// Arrange
 			var email = "test@example.com";
 			var password = "password123";
-			var expectedAuthenticationResult = (isAuthenticated: true, Name: "Test User", Id: 1);
+			var expectedAuthenticationResult = (isAuthenticated: true, Name: "Test User", Id: 1, Role: "User");
 			_mockUserRepository.Setup(repo => repo.AuthenticateUserAsync(email, password))
 				.ReturnsAsync(expectedAuthenticationResult);
 
@@ -83,7 +83,7 @@ namespace UnitTest_Novel_Nest
 			// Arrange
 			var email = "wrong@example.com";
 			var password = "wrongpassword";
-			var expectedAuthenticationResult = (isAuthenticated: false, Name: string.Empty, Id: -1);
+			var expectedAuthenticationResult = (isAuthenticated: false, Name: string.Empty, Id: -1, Role: "NULL");
 			_mockUserRepository.Setup(repo => repo.AuthenticateUserAsync(email, password))
 				.ReturnsAsync(expectedAuthenticationResult);
 
