@@ -1,0 +1,62 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #e5dbff;
+    color: #333; /* tekstkleur */
+}
+
+h1 {
+    color: #4d2e00; /* hoofdtekst kleur */
+}
+
+.create-field input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.categoryTitle {
+    font-size: 20px;
+}
+
+.list-group-category {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 40px;
+    padding: 20px;
+}
+
+.list-item {
+    list-style: circle;
+    margin-bottom: 10px;
+    border: thin;
+}
+
+.btnAdd {
+    background-color: #9775fa; /* Knopkleur */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+    .btnAdd:hover {
+        background-color: #b197fc; /* Knopkleur bij hover */
+    }
+
+.btn {
+    margin: 8px;
+}
+
+.edit-field input[type="text"] {
+    width: 250px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.edit-field button {
+}

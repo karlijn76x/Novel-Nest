@@ -1,7 +1,7 @@
 ﻿/* Algemene stijl */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0c8a0; /* Achtergrondkleur */
+    background-color: #e5dbff; /* Achtergrondkleur */
     margin: 0;
     padding: 0;
 }
@@ -47,3 +47,4 @@ body {
     .container button:hover {
         background-color: #6d4e20; /* Knopkleur bij hover */
     }
+

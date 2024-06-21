@@ -1,0 +1,73 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #e5dbff;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+.list-group-books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Zorgt voor ruimte tussen de items */
+    justify-content: flex-start;
+}
+
+.list-item {
+    flex: 0 1 30%; /* Items zullen 30% van de container breedte innemen en kunnen krimpen maar niet groeien */
+    list-style-type: none; /* Verwijdert de standaard lijststijl */
+}
+
+.bookTitle {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.edit-field input[type="text"],
+.edit-field select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Zorgt ervoor dat padding en border inbegrepen zijn in de totale breedte/hoogte */
+}
+
+.edit-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    padding: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.btn-success {
+    background-color: #4CAF50; /* Groene achtergrond */
+}
+
+.btn-danger {
+    background-color: #f44336; /* Rode achtergrond */
+}
+
+.btn-success:hover {
+    background-color: #45a049; /* Donkergroene achtergrond */
+}
+
+.btn-danger:hover {
+    background-color: #da190b; /* Donkerrode achtergrond */
+}

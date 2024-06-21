@@ -1,0 +1,82 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #e5dbff;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+save-btn {
+    background-color: #9775fa; /* Knopkleur */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+    save-btn:hover {
+        background-color: #b197fc; /* Knopkleur bij hover */
+    }
+
+
+h1 {
+    color: #6c63ff;
+}
+
+.reviewForm h1 {
+    color: #6c63ff;
+}
+
+.reviewForm {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+    .reviewForm label {
+        display: block;
+        margin-bottom: .5rem;
+        font-weight: 600;
+    }
+
+    .reviewForm input[type="date"],
+    .reviewForm select,
+    .reviewForm textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+        .reviewForm input[type="date"]:focus,
+        .reviewForm select:focus,
+        .reviewForm textarea:focus {
+            border-color: #6c63ff;
+            outline: none;
+        }
+
+    .reviewForm .save-btn {
+        background-color: #6c63ff; /* Knopkleur */
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        display: inline-block;
+        font-size: 1rem;
+    }
+
+        .reviewForm .save-btn:hover {
+            background-color: #5a52e0; /* Knopkleur bij hover */
+        }

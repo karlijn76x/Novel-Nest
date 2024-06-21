@@ -7,13 +7,10 @@ namespace Novel_Nest.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-     
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -23,8 +20,6 @@ namespace Novel_Nest.Controllers
         {
             return View();
         }
-
-
         public IActionResult Login()
         {
 			return RedirectToAction("Bookshelf", "BookshelfLibrary");

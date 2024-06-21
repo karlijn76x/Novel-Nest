@@ -1,0 +1,117 @@
+﻿@using Models
+@model CategoryViewModel
+@{
+	ViewData["Title"] = "AddBook";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+	<link rel="stylesheet" type="" href="~/css/NewBook.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<title>Novel Nest</title>
+</head>
+<body>
+	<H2>Let's add a new book to your collection!</H2>
+    <p>Fill in the details below to add a new book to your collection yourself.</p>
+    <form method="post" action="@Url.Action("AddBook", "Book")">
+        <div class="create-field">
+            <input type="text" placeholder="Book title" name="Title" required />
+            <input type="text" placeholder="Author" name="Author" required />
+            <select class="category-options" name="CategoryId" id="categoryId">
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+		<button class="btn" type="submit" class="btnAdd">Add your own book</button>
+        </form>
+    @* </form>
+    <p>Or you can search for a book in our open library here and add this to your own library!</p>
+    <form id="searchForm" method="post" action="@Url.Action("SearchBooks", "Book")">
+        <div class="create-field">
+            <input type="text" placeholder="Search by book title or author" name="query" required />
+        </div>
+        <button class="btn" type="submit">Search Books</button>
+    </form> *@
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var message = '@TempData["Message"]';
+        var errorMessage = '@TempData["ErrorMessage"]';
+
+        if (message) {
+            Swal.fire({
+                title: 'Success!',
+                text: message,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        } else if (errorMessage) {
+            Swal.fire({
+                title: 'Error!',
+                text: errorMessage,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
+</script>
+	@* 
+
+<script>
+    $(document).ready(function () {
+        $("#searchForm").submit(function (event) {
+            event.preventDefault();
+            var query = $("input[name='query']").val();
+            $.ajax({
+                url: '@Url.Action("SearchBooks", "Book")',
+                type: 'GET',
+                dataType: 'json',
+                data: { query: query },
+                success: function (response) {
+                    if (response.success) {
+                        var resultsHtml = '';
+                        response.books.forEach(function (book) {
+                            resultsHtml += '<div class="search-result-item">' +
+                                '<img src="' + book.CoverImageUrl + '" alt="Cover image" style="width:100px;height:150px;">' +
+                                '<h3>' + book.Title + '</h3>' +
+                                '<p>' + book.AuthorName.join(", ") + '</p>' +
+                                '<button onclick="addBook(\'' + book.Olid + '\')">Add to My Collection</button>' +
+                                '</div>';
+                        });
+                        $("#searchResults").html(resultsHtml);
+                    } else {
+                        Swal.fire('Error!', 'No books found. Please try again.', 'error');
+                    }
+                }
+
+            });
+        });
+    });
+
+    function addBook(olid) {
+        $.ajax({
+            url: '@Url.Action("AddBookFromSearch", "Book")',
+            type: 'POST',
+            dataType: 'json',
+            data: { olid: olid },
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire('Success!', 'Book added to your collection!', 'success');
+                } else {
+                    Swal.fire('Error!', 'Could not add the book. Please try again.', 'error');
+                }
+            }
+        });
+    }
+</script>
+ *@

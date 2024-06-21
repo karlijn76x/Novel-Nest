@@ -9,19 +9,35 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Login\" />
+    <Content Remove="Views\Book\_SearchResultsPartial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\EditDefaultCategories.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\ManageBooks.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\ManageCategories.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="GitHubApiStatus.Extensions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.0-preview.3.24172.13" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.0-preview.4.24267.6" />
+    <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="MySqlConnector" Version="2.3.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="xunit" Version="2.7.1" />
   </ItemGroup>
 
   <ItemGroup>
+	  <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
 	  <ProjectReference Include="..\Models\Models.csproj" />
 	  <ProjectReference Include="..\Novel_Nest_New_Core\Novel_Nest_Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Book\_SearchResultsPartial.cshtml" />
   </ItemGroup>
 
 </Project>

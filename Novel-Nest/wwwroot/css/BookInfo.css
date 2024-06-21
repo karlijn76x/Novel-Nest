@@ -1,0 +1,55 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #e5dbff;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+h1 {
+    color: #4d2e00; /* hoofdtekst kleur */
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.info-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.rating, .review, .date-info, .finished-info {
+    font-style: italic;
+}
+
+/* Specifieke stijlen voor als er geen rating/review/datum is */
+.no-info {
+    color: #777;
+}
+
+.btn {
+    background-color: #9775fa; /* Knopkleur */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+    .btn:hover {
+        background-color: #b197fc; /* Knopkleur bij hover */
+    }
