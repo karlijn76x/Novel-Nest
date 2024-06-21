@@ -34,7 +34,6 @@ namespace Novel_Nest.Controllers
             return View(model);
         }
 
-
         public IActionResult AddBooks()
         {
             return View();

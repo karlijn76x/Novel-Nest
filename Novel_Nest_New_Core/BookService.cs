@@ -15,17 +15,17 @@ namespace Novel_Nest_Core
             _bookRepository = bookRepository;
         }
 
-        public async Task<bool> AddBookAsync(BookDTO book)
+        public async Task<bool> AddBookAsync(BookModel book)
         {
             return await _bookRepository.AddBookAsync(book);
         }
 
-        public List<BookDTO> GetBooks(int userId)
+        public List<BookModel> GetBooks(int userId)
         {
             return _bookRepository.GetBooks(userId);
         }
 
-        public async Task<BookDTO> GetBookByUserIdAndBookId(int userId, int bookId)
+        public async Task<BookModel> GetBookByUserIdAndBookId(int userId, int bookId)
         {
             return await _bookRepository.GetBookByUserIdAndBookId(userId, bookId);
         }
@@ -35,17 +35,17 @@ namespace Novel_Nest_Core
             return await _bookRepository.DeleteBookAsync(Id);
         }
 
-        public async Task<bool> EditLibraryBookAsync(BookDTO book)
+        public async Task<bool> EditLibraryBookAsync(BookModel book)
         {
             return await _bookRepository.EditLibraryBookAsync(book);
         }
 
-		public async Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook)
+		public async Task<bool> AddBookToNightstandAsync(NightstandBookModel nightstandBook)
 		{
 			return await _bookRepository.AddBookToNightstandAsync(nightstandBook);
 		}
 
-		public List<NightstandBookDTO> GetNightstandBooks(int userId)
+		public List<NightstandBookModel> GetNightstandBooks(int userId)
 		{
 			return _bookRepository.GetNightstandBooks(userId);
 		}
@@ -60,12 +60,12 @@ namespace Novel_Nest_Core
             return await _bookRepository.IsBookInNightstandAsync(bookId);
         }
      
-        public async Task<NightstandBookDTO> GetNightstandBookByUserIdAndBookId(int userId, int bookId)
+        public async Task<NightstandBookModel> GetNightstandBookByUserIdAndBookId(int userId, int bookId)
         {
 			return await _bookRepository.GetNightstandBookByUserIdAndBookId(userId, bookId);
 		}
 
-        public async Task<bool> ReviewNightstandBookAsync(NightstandBookDTO nightstandBook)
+        public async Task<bool> ReviewNightstandBookAsync(NightstandBookModel nightstandBook)
         {
             return await _bookRepository.ReviewNightstandBookAsync(nightstandBook);
         }

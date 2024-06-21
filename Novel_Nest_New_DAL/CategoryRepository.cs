@@ -13,7 +13,7 @@ namespace Novel_Nest_DAL
             _connectionString = connectionString;
         }
 
-        public async Task<bool> AddCategoryAsync(CategoryDTO category)
+        public async Task<bool> AddCategoryAsync(CategoryModel category)
         {
             try
             {
@@ -37,11 +37,11 @@ namespace Novel_Nest_DAL
             }
         }
 
-        public List<CategoryDTO> GetCategories(int userId)
+        public List<CategoryModel> GetCategories(int userId)
         {
             try
             {
-                var categories = new List<CategoryDTO>();
+                var categories = new List<CategoryModel>();
 
                 using (var connection = new MySqlConnection(_connectionString))
                 {
@@ -54,7 +54,7 @@ namespace Novel_Nest_DAL
                         {
                             while (reader.Read())
                             {
-                                var category = new CategoryDTO
+                                var category = new CategoryModel
                                 {
                                     Name = reader.GetString("Name"),
                                     Id = reader.GetInt32("Id"),
@@ -70,13 +70,13 @@ namespace Novel_Nest_DAL
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving categories: {ex.Message}");
-                return new List<CategoryDTO>();
+                return new List<CategoryModel>();
             }
         }
 
-		public async Task<List<CategoryDTO>> GetUserAndDefaultCategoriesAsync(int userId)
+		public async Task<List<CategoryModel>> GetUserAndDefaultCategoriesAsync(int userId)
 		{
-			var categories = new List<CategoryDTO>();
+			var categories = new List<CategoryModel>();
 			using (var connection = new MySqlConnection(_connectionString))
 			{
 				await connection.OpenAsync();
@@ -87,7 +87,7 @@ namespace Novel_Nest_DAL
 					{
 						while (await reader.ReadAsync())
 						{
-							categories.Add(new CategoryDTO
+							categories.Add(new CategoryModel
 							{
 								Id = reader.GetInt32("Id"),
 								Name = reader.GetString("Name"),
@@ -124,7 +124,7 @@ namespace Novel_Nest_DAL
             }
         }
 
-        public async Task<bool> EditCategoryAsync(CategoryDTO category)
+        public async Task<bool> EditCategoryAsync(CategoryModel category)
         {
             try
             {

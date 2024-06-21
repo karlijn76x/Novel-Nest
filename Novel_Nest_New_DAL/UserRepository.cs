@@ -25,7 +25,7 @@ namespace Novel_Nest_DAL
 			return result?.ToString();
 		}
 
-        public async Task<bool> CreateUserAsync(UserModelDTO user)
+        public async Task<bool> CreateUserAsync(UserModel user)
         {
             try
             {

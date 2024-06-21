@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Novel_Nest_Core;
+﻿using Novel_Nest_Core;
 using Interfaces;
 using Moq;
 using Models;
@@ -28,10 +23,10 @@ namespace UnitTest_Novel_Nest
 		{
 			// Arrange
 			var userId = 1;
-			var expectedBooks = new List<BookDTO>
+			var expectedBooks = new List<BookModel>
 			{
-				new BookDTO { Id = 1, Title = "Test Book 1" },
-				new BookDTO { Id = 2, Title = "Test Book 2" }
+				new BookModel { Id = 1, Title = "Test Book 1" },
+				new BookModel { Id = 2, Title = "Test Book 2" }
 			};
 			_mockBookRepository.Setup(repo => repo.GetBooks(userId))
 				.Returns(expectedBooks);
@@ -49,7 +44,7 @@ namespace UnitTest_Novel_Nest
 		{
 			// Arrange
 			var userId = 99;
-			var expectedBooks = new List<BookDTO>();
+			var expectedBooks = new List<BookModel>();
 			_mockBookRepository.Setup(repo => repo.GetBooks(userId))
 				.Returns(expectedBooks);
 
@@ -67,7 +62,7 @@ namespace UnitTest_Novel_Nest
 			// Arrange
 			var userId = 1;
 			var bookId = 1;
-			var expectedBook = new BookDTO { Id = 1, Title = "Test Book" };
+			var expectedBook = new BookModel { Id = 1, Title = "Test Book" };
 			_mockBookRepository.Setup(repo => repo.GetBookByUserIdAndBookId(userId, bookId))
 				.ReturnsAsync(expectedBook);
 
@@ -85,7 +80,7 @@ namespace UnitTest_Novel_Nest
 			// Arrange
 			var userId = 1;
 			var bookId = 99;
-			BookDTO? expectedBook = null;
+			BookModel? expectedBook = null;
 			_mockBookRepository.Setup(repo => repo.GetBookByUserIdAndBookId(userId, bookId))
 				.ReturnsAsync(expectedBook);
 
@@ -101,7 +96,7 @@ namespace UnitTest_Novel_Nest
 		public async Task AddBookAsync_WhenBookAdded_ReturnsTrue()
 		{
 			// Arrange
-			var book = new BookDTO { Title = "Test Book" };
+			var book = new BookModel { Title = "Test Book" };
 			_mockBookRepository.Setup(repo => repo.AddBookAsync(book))
 				.ReturnsAsync(true);
 
@@ -116,7 +111,7 @@ namespace UnitTest_Novel_Nest
 		[TestMethod]
 		public void AddBookAsync_WhenBookCantBeAdded_ReturnsFalse() {
 			// Arrange
-			var book = new BookDTO { Title = "Test Book" };
+			var book = new BookModel { Title = "Test Book" };
 			_mockBookRepository.Setup(repo => repo.AddBookAsync(book))
 				.ReturnsAsync(false);
 
@@ -164,7 +159,7 @@ namespace UnitTest_Novel_Nest
 		public async Task EditLibraryBookAsync_WhenBookEdited_ReturnsTrue()
 		{
 			// Arrange
-			var book = new BookDTO { Id = 1, Title = "Test Book" };
+			var book = new BookModel { Id = 1, Title = "Test Book" };
 			_mockBookRepository.Setup(repo => repo.EditLibraryBookAsync(book))
 				.ReturnsAsync(true);
 
@@ -180,7 +175,7 @@ namespace UnitTest_Novel_Nest
 		public void EditLibraryBookAsync_WhenBookCantBeEdited_ReturnsFalse()
 		{
 			// Arrange
-			var book = new BookDTO { Id = 1, Title = "Test Book" };
+			var book = new BookModel { Id = 1, Title = "Test Book" };
 			_mockBookRepository.Setup(repo => repo.EditLibraryBookAsync(book))
 				.ReturnsAsync(false);
 
@@ -196,7 +191,7 @@ namespace UnitTest_Novel_Nest
 		public async Task AddBookToNightstandAsync_WhenBookAdded_ReturnsTrue()
 		{
 			// Arrange
-			var nightstandBook = new NightstandBookDTO { BookId = 1, UserId = 1 };
+			var nightstandBook = new NightstandBookModel { BookId = 1, UserId = 1 };
 			_mockBookRepository.Setup(repo => repo.AddBookToNightstandAsync(nightstandBook))
 				.ReturnsAsync(true);
 
@@ -212,7 +207,7 @@ namespace UnitTest_Novel_Nest
 		public void AddBookToNightstandAsync_WhenBookCantBeAdded_ReturnsFalse()
 		{
 			// Arrange
-			var nightstandBook = new NightstandBookDTO { BookId = 1, UserId = 1 };
+			var nightstandBook = new NightstandBookModel { BookId = 1, UserId = 1 };
 			_mockBookRepository.Setup(repo => repo.AddBookToNightstandAsync(nightstandBook))
 				.ReturnsAsync(false);
 
@@ -229,10 +224,10 @@ namespace UnitTest_Novel_Nest
 		{
 			// Arrange
 			var userId = 1;
-			var expectedNightstandBooks = new List<NightstandBookDTO>
+			var expectedNightstandBooks = new List<NightstandBookModel>
 			{
-				new NightstandBookDTO { Id = 1, BookId = 1 },
-				new NightstandBookDTO { Id = 2, BookId = 2 }
+				new NightstandBookModel { Id = 1, BookId = 1 },
+				new NightstandBookModel { Id = 2, BookId = 2 }
 			};
 			_mockBookRepository.Setup(repo => repo.GetNightstandBooks(userId))
 				.Returns(expectedNightstandBooks);
@@ -250,7 +245,7 @@ namespace UnitTest_Novel_Nest
 		{
 			// Arrange
 			var userId = 99;
-			var expectedNightstandBooks = new List<NightstandBookDTO>();
+			var expectedNightstandBooks = new List<NightstandBookModel>();
 			_mockBookRepository.Setup(repo => repo.GetNightstandBooks(userId))
 				.Returns(expectedNightstandBooks);
 
@@ -332,7 +327,7 @@ namespace UnitTest_Novel_Nest
 			// Arrange
 			var userId = 1;
 			var bookId = 1;
-			var expectedNightstandBook = new NightstandBookDTO { Id = 1, BookId = 1, UserId = 1 };
+			var expectedNightstandBook = new NightstandBookModel { Id = 1, BookId = 1, UserId = 1 };
 			_mockBookRepository.Setup(repo => repo.GetNightstandBookByUserIdAndBookId(userId, bookId))
 				.ReturnsAsync(expectedNightstandBook);
 
@@ -350,7 +345,7 @@ namespace UnitTest_Novel_Nest
 			// Arrange
 			var userId = 1;
 			var bookId = 99;
-			NightstandBookDTO? expectedNightstandBook = null;
+			NightstandBookModel? expectedNightstandBook = null;
 			_mockBookRepository.Setup(repo => repo.GetNightstandBookByUserIdAndBookId(userId, bookId))
 				.ReturnsAsync(expectedNightstandBook);
 
@@ -366,7 +361,7 @@ namespace UnitTest_Novel_Nest
 		public async Task ReviewNightstandBookAsync_WhenNightstandBookReviewed_ReturnsTrue()
 		{
 			// Arrange
-			var nightstandBook = new NightstandBookDTO { Id = 1, BookId = 1, UserId = 1 };
+			var nightstandBook = new NightstandBookModel { Id = 1, BookId = 1, UserId = 1 };
 			_mockBookRepository.Setup(repo => repo.ReviewNightstandBookAsync(nightstandBook))
 				.ReturnsAsync(true);
 
@@ -382,7 +377,7 @@ namespace UnitTest_Novel_Nest
 		public void ReviewNightstandBookAsync_WhenNightstandBookCantBeReviewed_ReturnsFalse()
 		{
 			// Arrange
-			var nightstandBook = new NightstandBookDTO { Id = 1, BookId = 1, UserId = 1 };
+			var nightstandBook = new NightstandBookModel { Id = 1, BookId = 1, UserId = 1 };
 			_mockBookRepository.Setup(repo => repo.ReviewNightstandBookAsync(nightstandBook))
 				.ReturnsAsync(false);
 

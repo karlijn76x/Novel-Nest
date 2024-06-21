@@ -13,7 +13,7 @@ namespace Novel_Nest_Core
             _adminRepository = adminRepository;
         }
 
-        public async Task<List<CategoryDTO>> GetAllCategoriesAsync()
+        public async Task<List<CategoryModel>> GetAllCategoriesAsync()
         {
             return await _adminRepository.GetAllCategoriesFromUsersAsync();
         }
@@ -23,12 +23,12 @@ namespace Novel_Nest_Core
             return await _adminRepository.DeleteCategoryFromUserAsync(categoryId);
         }
 
-        public async Task<List<BookDTO>> GetAllBooksAsync()
+        public async Task<List<BookModel>> GetAllBooksAsync()
         {
             return await _adminRepository.GetAllBooksAsync();
         }
 
-		public async Task<bool> EditBookAsync(BookDTO book)
+		public async Task<bool> EditBookAsync(BookModel book)
 		{
 			return await _adminRepository.EditBookAsync(book);
 		}
@@ -38,17 +38,17 @@ namespace Novel_Nest_Core
 			return await _adminRepository.DeleteBookAsync(bookId, userId);
 		}
 
-        public async Task<bool> AddDefaultCategoryAsync(CategoryDTO category)
+        public async Task<bool> AddDefaultCategoryAsync(CategoryModel category)
         {
             return await _adminRepository.AddDefaultCategoryAsync(category);
         }
 
-		public async Task<List<CategoryDTO>> GetDefaultCategoriesAsync()
+		public async Task<List<CategoryModel>> GetDefaultCategoriesAsync()
 		{
 			return await _adminRepository.GetDefaultCategoriesAsync();
 		}
 
-        public async Task<bool> EditDefaultCategoryAsync(CategoryDTO category)
+        public async Task<bool> EditDefaultCategoryAsync(CategoryModel category)
 		{
 			return await _adminRepository.EditDefaultCategoryAsync(category);
 		}

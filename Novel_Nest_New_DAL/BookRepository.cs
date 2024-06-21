@@ -13,7 +13,7 @@ namespace Novel_Nest_DAL
 			_connectionString = connectionString;
 		}
 
-		public async Task<bool> AddBookAsync(BookDTO book)
+		public async Task<bool> AddBookAsync(BookModel book)
 		{
 			try
 			{
@@ -40,11 +40,11 @@ namespace Novel_Nest_DAL
 			}
 		}
 
-		public List<BookDTO> GetBooks(int userId)
+		public List<BookModel> GetBooks(int userId)
 		{
 			try
 			{
-				var books = new List<BookDTO>();
+				var books = new List<BookModel>();
 
 				using (MySqlConnection connection = new MySqlConnection(_connectionString))
 				{
@@ -61,7 +61,7 @@ namespace Novel_Nest_DAL
 						{
 							while (reader.Read())
 							{
-								var book = new BookDTO
+								var book = new BookModel
 								{
 									Id = reader.GetInt32("Id"),
 									Title = reader.GetString("Title"),
@@ -79,10 +79,10 @@ namespace Novel_Nest_DAL
 			catch (Exception ex)
 			{
 				Console.WriteLine($"Error retrieving books: {ex.Message}");
-				return new List<BookDTO>();
+				return new List<BookModel>();
 			}
 		}
-		public async Task<BookDTO> GetBookByUserIdAndBookId(int userId, int bookId)
+		public async Task<BookModel> GetBookByUserIdAndBookId(int userId, int bookId)
 		{
 			try
 			{
@@ -106,7 +106,7 @@ namespace Novel_Nest_DAL
 						{
 							if (reader.Read())
 							{
-								return new BookDTO
+								return new BookModel
 								{
 									Id = reader.GetInt32("Id"),
 									Title = reader.GetString("Title"),
@@ -155,7 +155,7 @@ namespace Novel_Nest_DAL
 			}
 		}
 
-		public async Task<bool> EditLibraryBookAsync(BookDTO book)
+		public async Task<bool> EditLibraryBookAsync(BookModel book)
 		{
 			try
 			{
@@ -184,7 +184,7 @@ namespace Novel_Nest_DAL
 			}
 		}
 
-		public async Task<bool> AddBookToNightstandAsync(NightstandBookDTO nightstandBook)
+		public async Task<bool> AddBookToNightstandAsync(NightstandBookModel nightstandBook)
 		{
 			try
 			{
@@ -211,11 +211,11 @@ namespace Novel_Nest_DAL
 			}
 		}
 
-		public List<NightstandBookDTO> GetNightstandBooks(int userId)
+		public List<NightstandBookModel> GetNightstandBooks(int userId)
 		{
 			try
 			{
-				var nightstandBooks = new List<NightstandBookDTO>();
+				var nightstandBooks = new List<NightstandBookModel>();
 
 				using (MySqlConnection connection = new MySqlConnection(_connectionString))
 				{
@@ -234,7 +234,7 @@ namespace Novel_Nest_DAL
 						{
 							while (reader.Read())
 							{
-								var nightstandBook = new NightstandBookDTO
+								var nightstandBook = new NightstandBookModel
 								{
 									Id = reader.GetInt32("Id"),
 									BookId = reader.GetInt32("BookId"),
@@ -254,7 +254,7 @@ namespace Novel_Nest_DAL
 			catch (Exception ex)
 			{
 				Console.WriteLine($"Error retrieving nightstand books: {ex.Message}");
-				return new List<NightstandBookDTO>();
+				return new List<NightstandBookModel>();
 			}
 		}
 
@@ -304,7 +304,7 @@ namespace Novel_Nest_DAL
 			}
 		}
 
-		public async Task<NightstandBookDTO> GetNightstandBookByUserIdAndBookId(int userId, int bookId)
+		public async Task<NightstandBookModel> GetNightstandBookByUserIdAndBookId(int userId, int bookId)
 		{
 			try
 			{
@@ -323,7 +323,7 @@ namespace Novel_Nest_DAL
 						{
 							if (reader.Read())
 							{
-								return new NightstandBookDTO
+								return new NightstandBookModel
 								{
 									Id = reader.GetInt32("Id"),
 									BookId = reader.GetInt32("BookId"),
@@ -342,7 +342,7 @@ namespace Novel_Nest_DAL
 			return null;
 		}
 
-		public async Task<bool> ReviewNightstandBookAsync(NightstandBookDTO nightstandBook)
+		public async Task<bool> ReviewNightstandBookAsync(NightstandBookModel nightstandBook)
 		{
 			try
 			{

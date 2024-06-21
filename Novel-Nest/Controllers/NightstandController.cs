@@ -54,7 +54,7 @@ public class NightstandController : Controller
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> AddBookToNightstand(NightstandBookDTO nightstandBook)
+	public async Task<IActionResult> AddBookToNightstand(NightstandBookModel nightstandBook)
 	{
 		var userId = HttpContext.Session.GetInt32("UserId");
 		if (userId == null)
@@ -147,7 +147,7 @@ public class NightstandController : Controller
 
         if (ModelState.IsValid)
         {
-            var nightstandBook = new NightstandBookDTO
+            var nightstandBook = new NightstandBookModel
             {
                 UserId = model.UserId,
                 BookId = model.BookId,
@@ -155,7 +155,6 @@ public class NightstandController : Controller
                 Review = model.Review,
                 DateFinished = model.DateFinished,
 				Finished = true
-                // Vul de rest van de velden in indien nodig
             };
 
             bool success = await _bookService.ReviewNightstandBookAsync(nightstandBook);

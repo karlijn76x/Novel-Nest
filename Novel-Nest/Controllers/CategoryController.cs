@@ -16,7 +16,7 @@ namespace Novel_Nest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory(CategoryDTO category)
+        public async Task<IActionResult> AddCategory(CategoryModel category)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace Novel_Nest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCategoryAsync(CategoryDTO category)
+        public async Task<IActionResult> EditCategoryAsync(CategoryModel category)
         {
             if (!ModelState.IsValid)
             {

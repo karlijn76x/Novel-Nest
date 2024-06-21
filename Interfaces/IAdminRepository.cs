@@ -9,14 +9,14 @@ namespace Interfaces
 {
     public interface IAdminRepository
     {
-        public Task<List<CategoryDTO>> GetAllCategoriesFromUsersAsync();
+        public Task<List<CategoryModel>> GetAllCategoriesFromUsersAsync();
         public Task<bool> DeleteCategoryFromUserAsync(int categoryId);
-        public Task<List<BookDTO>> GetAllBooksAsync();
-        public Task<bool> EditBookAsync(BookDTO book);
+        public Task<List<BookModel>> GetAllBooksAsync();
+        public Task<bool> EditBookAsync(BookModel book);
         public Task<bool> DeleteBookAsync(int bookId, int userId);
-        public Task<bool> AddDefaultCategoryAsync(CategoryDTO category);
-        public Task<List<CategoryDTO>> GetDefaultCategoriesAsync();
-        public Task<bool> EditDefaultCategoryAsync(CategoryDTO category);
+        public Task<bool> AddDefaultCategoryAsync(CategoryModel category);
+        public Task<List<CategoryModel>> GetDefaultCategoriesAsync();
+        public Task<bool> EditDefaultCategoryAsync(CategoryModel category);
         public Task<bool> DeleteDefaultCategoryAsync(int categoryId);
 	}
 }

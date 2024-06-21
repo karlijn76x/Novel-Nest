@@ -16,7 +16,7 @@ namespace Novel_Nest.Models
             public bool Finished { get; set; }
             public string CoverImageUrl { get; set; }
 
-            public BookInfoViewModel(BookDTO book)
+            public BookInfoViewModel(BookModel book)
             {
                 Id = book.Id;
                 Title = book.Title;

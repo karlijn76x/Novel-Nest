@@ -13,17 +13,17 @@ namespace Novel_Nest_Core
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<bool> AddCategoryAsync(CategoryDTO category)
+        public async Task<bool> AddCategoryAsync(CategoryModel category)
         {
             return await _categoryRepository.AddCategoryAsync(category);
         }
 
-        public List<CategoryDTO> GetCategories(int userId)
+        public List<CategoryModel> GetCategories(int userId)
         {
             return _categoryRepository.GetCategories(userId);
         }
 
-		public async Task<List<CategoryDTO>> GetUserAndDefaultCategoriesAsync(int userId)
+		public async Task<List<CategoryModel>> GetUserAndDefaultCategoriesAsync(int userId)
 		{
 			return await _categoryRepository.GetUserAndDefaultCategoriesAsync(userId);
 		}
@@ -33,7 +33,7 @@ namespace Novel_Nest_Core
             return await _categoryRepository.DeleteCategoryAsync(Id, UserId);
         }
 
-        public async Task<bool> EditCategoryAsync(CategoryDTO category)
+        public async Task<bool> EditCategoryAsync(CategoryModel category)
         {
             return await _categoryRepository.EditCategoryAsync(category);
         }

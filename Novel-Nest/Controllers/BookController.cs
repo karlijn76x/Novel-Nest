@@ -39,7 +39,7 @@ namespace Novel_Nest.Controllers
 
 
         [HttpPost]
-		public async Task<IActionResult> AddBook(BookDTO book)
+		public async Task<IActionResult> AddBook(BookModel book)
 		{
 			if (ModelState.IsValid)
 			{
@@ -113,7 +113,7 @@ namespace Novel_Nest.Controllers
 
       
         [HttpPost]
-        public async Task<IActionResult> EditLibraryBook(BookDTO book)
+        public async Task<IActionResult> EditLibraryBook(BookModel book)
         {
             try
             {
