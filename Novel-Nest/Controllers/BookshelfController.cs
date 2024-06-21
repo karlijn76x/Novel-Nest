@@ -63,6 +63,5 @@ namespace Novel_Nest.Controllers
 
             return View(model);
         }
-
     }
 }

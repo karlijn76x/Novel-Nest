@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Book\_SearchResultsPartial.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\EditDefaultCategories.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\ManageBooks.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\ManageCategories.css" />
@@ -34,10 +30,6 @@
 	  <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
 	  <ProjectReference Include="..\Models\Models.csproj" />
 	  <ProjectReference Include="..\Novel_Nest_New_Core\Novel_Nest_Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Book\_SearchResultsPartial.cshtml" />
   </ItemGroup>
 
 </Project>

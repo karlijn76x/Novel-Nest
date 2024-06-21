@@ -48,19 +48,18 @@
 	</form>
 
 	</div>
+	<script>
+		$(document).ready(function () {
+			var accountCreated = '@TempData["AccountCreated"]';
+			if (accountCreated) {
+				Swal.fire({
+					title: 'Success!',
+					text: accountCreated,
+					icon: 'success',
+					confirmButtonText: 'OK'
+				});
+			}
+		});
+	</script>
 </body>
-<script>
-	$(document).ready(function () {
-		var accountCreated = '@TempData["AccountCreated"]';
-		if (accountCreated) {
-			Swal.fire({
-				title: 'Success!',
-				text: accountCreated,
-				icon: 'success',
-				confirmButtonText: 'OK'
-			});
-		}
-	});
-</script>
-
 </html>

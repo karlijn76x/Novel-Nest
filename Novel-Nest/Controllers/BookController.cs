@@ -37,7 +37,6 @@ namespace Novel_Nest.Controllers
             return View(model);
         }
 
-
         [HttpPost]
 		public async Task<IActionResult> AddBook(BookModel book)
 		{
@@ -111,7 +110,6 @@ namespace Novel_Nest.Controllers
             }
         }
 
-      
         [HttpPost]
         public async Task<IActionResult> EditLibraryBook(BookModel book)
         {
@@ -186,8 +184,6 @@ namespace Novel_Nest.Controllers
         //        return Json(new { success = false, message = "Failed to add the book." });
         //    }
         //}
-
-
 
     }
 }

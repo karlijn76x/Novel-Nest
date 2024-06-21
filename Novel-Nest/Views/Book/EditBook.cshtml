@@ -55,53 +55,53 @@
                 </li>
             </ul>
         }
-    </div>
-</body>
-</html>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var message = '@TempData["Message"]';
-        if (message) {
-            var title = 'Success!';
-            var text = '';
-            var icon = 'success';
+	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var message = '@TempData["Message"]';
+			if (message) {
+				var title = 'Success!';
+				var text = '';
+				var icon = 'success';
 
-            if (message === "CannotDeleteInNightstand") {
-                title = 'Cannot Delete';
-                text = 'This book cannot be deleted because it is linked to the nightstand.';
-                icon = 'error';
-            } else if (message === "Deleted") {
-                text = 'Book has been successfully deleted.';
-            } else if (message === "Edited") {
-                text = 'Book has been successfully edited.';
-            }
+				if (message === "CannotDeleteInNightstand") {
+					title = 'Cannot Delete';
+					text = 'This book cannot be deleted because it is linked to the nightstand.';
+					icon = 'error';
+				} else if (message === "Deleted") {
+					text = 'Book has been successfully deleted.';
+				} else if (message === "Edited") {
+					text = 'Book has been successfully edited.';
+				}
 
-            Swal.fire({
-                title: title,
-                text: text,
-                icon: icon,
-                confirmButtonText: 'OK'
-            });
-        }
-    });
-</script>
-<script>
-    const searchInput = document.getElementById('searchInput');
-	const books = document.querySelectorAll('.list-item');
-
-	searchInput.addEventListener('input', function () {
-		const searchTerm = searchInput.value.trim().toLowerCase();
-
-		books.forEach(function (book) {
-			const title = book.querySelector('.book-title').innerText.toLowerCase();
-			const author = book.querySelector('.book-author').innerText.toLowerCase();
-			const category = book.querySelector('.book-category').innerText.toLowerCase();
-
-			if (title.includes(searchTerm) || author.includes(searchTerm) || category.includes(searchTerm)) {
-				book.style.display = 'block';
-			} else {
-				book.style.display = 'none';
+				Swal.fire({
+					title: title,
+					text: text,
+					icon: icon,
+					confirmButtonText: 'OK'
+				});
 			}
 		});
-	});
-</script>
+	</script>
+	<script>
+		const searchInput = document.getElementById('searchInput');
+		const books = document.querySelectorAll('.list-item');
+
+		searchInput.addEventListener('input', function () {
+			const searchTerm = searchInput.value.trim().toLowerCase();
+
+			books.forEach(function (book) {
+				const title = book.querySelector('.book-title').innerText.toLowerCase();
+				const author = book.querySelector('.book-author').innerText.toLowerCase();
+				const category = book.querySelector('.book-category').innerText.toLowerCase();
+
+				if (title.includes(searchTerm) || author.includes(searchTerm) || category.includes(searchTerm)) {
+					book.style.display = 'block';
+				} else {
+					book.style.display = 'none';
+				}
+			});
+		});
+	</script>
+</body>
+</html>

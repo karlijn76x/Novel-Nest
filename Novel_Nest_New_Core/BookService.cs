@@ -9,7 +9,6 @@ namespace Novel_Nest_Core
     {
         private readonly IBookRepository _bookRepository;
 
-
         public BookService(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;

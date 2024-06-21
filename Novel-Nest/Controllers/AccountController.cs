@@ -44,7 +44,6 @@ namespace Novel_Nest.Controllers
             }
         }
 
-
         [HttpPost]
         public IActionResult Logout()
         {

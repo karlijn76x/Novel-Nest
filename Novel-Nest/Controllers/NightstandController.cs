@@ -84,26 +84,28 @@ public class NightstandController : Controller
 		}
 	}
 
-	[HttpPost]
-	public async Task<IActionResult> DeleteBook(int Id)
-	{
-		var userId = HttpContext.Session.GetInt32("UserId");
-		if (userId == null)
-		{
-			return RedirectToAction("LoginPage", "Home");
-		}
+    [HttpPost]
+    public async Task<IActionResult> DeleteBook(int Id)
+    {
+        var userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+        {
+            return RedirectToAction("LoginPage", "Home");
+        }
 
-		bool success = await _bookService.DeleteNightstandBookAsync(Id);
-		if (success)
-		{
-			return RedirectToAction("Index", "Nightstand");
-		}
-		else
-		{
-			ViewBag.ErrorMessage = "Failed to remove book from nightstand. Please try again.";
-			return View("ErrorView");
-		}
-	}
+        bool success = await _bookService.DeleteNightstandBookAsync(Id);
+        if (success)
+        {
+            TempData["SuccessMessage"] = "Book successfully removed from your nightstand.";
+            return RedirectToAction("Index", "Nightstand");
+        }
+        else
+        {
+            ViewBag.ErrorMessage = "Failed to remove book from nightstand. Please try again.";
+            return View("ErrorView");
+        }
+    }
+
     [HttpGet]
     public async Task<IActionResult> EditNightstandBook(int bookId)
     {
@@ -154,13 +156,14 @@ public class NightstandController : Controller
                 Rating = model.Rating,
                 Review = model.Review,
                 DateFinished = model.DateFinished,
-				Finished = true
+                Finished = true
             };
 
             bool success = await _bookService.ReviewNightstandBookAsync(nightstandBook);
 
             if (success)
             {
+                TempData["SuccessMessage"] = "Book review successfully updated.";
                 return RedirectToAction("Index");
             }
             else
@@ -171,17 +174,10 @@ public class NightstandController : Controller
         }
         else
         {
-            
-            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-            {
-        
-                Console.WriteLine(error.ErrorMessage);
-            }
-
-       
             return View("EditNightstandBook", model);
         }
     }
+
 
 
 

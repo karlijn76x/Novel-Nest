@@ -49,7 +49,6 @@ namespace Novel_Nest.Controllers
 			return View(model);
 		}
 
-
 		[HttpPost]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {
@@ -97,7 +96,6 @@ namespace Novel_Nest.Controllers
             }
             return RedirectToAction("ManageBooks");
         }
-
 
         public async Task<IActionResult> AddDefaultCategories()
 		{
