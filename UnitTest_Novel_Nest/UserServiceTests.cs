@@ -63,7 +63,7 @@ namespace UnitTest_Novel_Nest
 			// Arrange
 			var email = "test@example.com";
 			var password = "password123";
-			var expectedAuthenticationResult = (isAuthenticated: true, Name: "Test User", Id: 1);
+			var expectedAuthenticationResult = (isAuthenticated: true, Name: "Test User", Id: 1, Role: "User");
 			_mockUserRepository.Setup(repo => repo.AuthenticateUserAsync(email, password))
 				.ReturnsAsync(expectedAuthenticationResult);
 
@@ -83,7 +83,7 @@ namespace UnitTest_Novel_Nest
 			// Arrange
 			var email = "wrong@example.com";
 			var password = "wrongpassword";
-			var expectedAuthenticationResult = (isAuthenticated: false, Name: string.Empty, Id: -1);
+			var expectedAuthenticationResult = (isAuthenticated: false, Name: string.Empty, Id: -1, Role: "NULL");
 			_mockUserRepository.Setup(repo => repo.AuthenticateUserAsync(email, password))
 				.ReturnsAsync(expectedAuthenticationResult);
 
@@ -102,7 +102,7 @@ namespace UnitTest_Novel_Nest
 		public async Task CreateUserAsync_ReturnsTrue_WhenUserIsSuccessfullyCreated()
 		{
 			// Arrange
-			var newUser = new UserModelDTO
+			var newUser = new UserModel
 			{
 				Name = "New User",
 				Age = 30,
@@ -117,14 +117,14 @@ namespace UnitTest_Novel_Nest
 
 			// Assert
 			Assert.IsTrue(result);
-			_mockUserRepository.Verify(repo => repo.CreateUserAsync(It.IsAny<UserModelDTO>()), Times.Once);
+			_mockUserRepository.Verify(repo => repo.CreateUserAsync(It.IsAny<UserModel>()), Times.Once);
 		}
 
 		[TestMethod]
 		public async Task CreateUserAsync_ReturnsFalse_WhenUserCreationFails()
 		{
 			// Arrange
-			var newUser = new UserModelDTO
+			var newUser = new UserModel
 			{
 				Name = "Fail User",
 				Age = 25,
@@ -139,7 +139,7 @@ namespace UnitTest_Novel_Nest
 
 			// Assert
 			Assert.IsFalse(result);
-			_mockUserRepository.Verify(repo => repo.CreateUserAsync(It.IsAny<UserModelDTO>()), Times.Once);
+			_mockUserRepository.Verify(repo => repo.CreateUserAsync(It.IsAny<UserModel>()), Times.Once);
 		}
 
 

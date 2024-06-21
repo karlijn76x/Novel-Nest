@@ -1,7 +1,7 @@
 ﻿
 namespace Models
 {
-	public class CategoryDTO
+	public class CategoryModel
 	{
 		public string Name { get; set; } = string.Empty;
 		public int Id { get; set; } 

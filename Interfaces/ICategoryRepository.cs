@@ -9,11 +9,11 @@ namespace Interfaces
 {
 	public interface ICategoryRepository
 	{
-        Task<bool> AddCategoryAsync(CategoryDTO category);
-        List<CategoryDTO> GetCategories(int userId);
-		public Task<List<CategoryDTO>> GetUserAndDefaultCategoriesAsync(int userId);
+        Task<bool> AddCategoryAsync(CategoryModel category);
+        List<CategoryModel> GetCategories(int userId);
+		public Task<List<CategoryModel>> GetUserAndDefaultCategoriesAsync(int userId);
 		public Task<bool> DeleteCategoryAsync(int Id, int userId);
-        public Task<bool> EditCategoryAsync(CategoryDTO category);
+        public Task<bool> EditCategoryAsync(CategoryModel category);
 		public Task<bool> IsCategoryInUseAsync(int categoryId);
 
 	}

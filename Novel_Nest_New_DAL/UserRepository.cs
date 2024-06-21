@@ -8,7 +8,6 @@ namespace Novel_Nest_DAL
 	public class UserRepository : IUserRepository
 	{
 		private readonly string _connectionString;
-		
 
 		public UserRepository(string connectionString)
 		{
@@ -25,7 +24,7 @@ namespace Novel_Nest_DAL
 			return result?.ToString();
 		}
 
-        public async Task<bool> CreateUserAsync(UserModelDTO user)
+        public async Task<bool> CreateUserAsync(UserModel user)
         {
             try
             {
@@ -86,7 +85,6 @@ namespace Novel_Nest_DAL
             }
             catch (Exception ex)
             {
-                // Log de uitzondering of handel deze af
                 throw;
             }
             return (false, "", -1, "");

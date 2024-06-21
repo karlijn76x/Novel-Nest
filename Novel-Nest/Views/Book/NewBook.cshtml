@@ -40,31 +40,32 @@
         </div>
         <button class="btn" type="submit">Search Books</button>
     </form> *@
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var message = '@TempData["Message"]';
+            var errorMessage = '@TempData["ErrorMessage"]';
+
+            if (message) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: message,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            } else if (errorMessage) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    </script>
 </body>
 </html>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var message = '@TempData["Message"]';
-        var errorMessage = '@TempData["ErrorMessage"]';
-
-        if (message) {
-            Swal.fire({
-                title: 'Success!',
-                text: message,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            });
-        } else if (errorMessage) {
-            Swal.fire({
-                title: 'Error!',
-                text: errorMessage,
-                icon: 'error',
-                confirmButtonText: 'Ok'
-            });
-        }
-    });
-</script>
 	@* 
 
 <script>

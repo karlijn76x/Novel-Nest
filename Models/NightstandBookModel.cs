@@ -1,7 +1,7 @@
 ﻿
 namespace Models
 {
-	public class NightstandBookDTO
+	public class NightstandBookModel
 	{
 		public int Id { get; set; }
 		public int UserId { get; set; }

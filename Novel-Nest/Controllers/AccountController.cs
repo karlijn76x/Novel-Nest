@@ -44,7 +44,6 @@ namespace Novel_Nest.Controllers
             }
         }
 
-
         [HttpPost]
         public IActionResult Logout()
         {
@@ -53,7 +52,7 @@ namespace Novel_Nest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccount(UserModelDTO userModel)
+        public async Task<IActionResult> CreateAccount(UserModel userModel)
         {
             if (ModelState.IsValid)
             {

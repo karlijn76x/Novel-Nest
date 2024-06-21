@@ -1,7 +1,7 @@
 ﻿
 namespace Models
 {
-	public class BookDTO
+	public class BookModel
 	{   
 		public int Id {  get; set; }
 		public string Title { get; set; } = string.Empty; 
@@ -9,7 +9,6 @@ namespace Models
 		public int CategoryId { get; set; }
 		public string CategoryName { get; set; } = string.Empty;
 		public DateTime ? DateStarted { get; set; }
-		public DateTime? EndDate { get; set; }
 		public int UserId { get; set; }
         public string CoverImageUrl { get; set; } = string.Empty;
         public DateTime? DateFinished { get; set; }

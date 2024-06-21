@@ -35,22 +35,21 @@
             </div>
         }
     </div>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const books = document.querySelectorAll('.books');
 
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.trim().toLowerCase(); // Haal de zoekterm op en converteer naar lowercase
+
+            books.forEach(function (book) {
+                if (book.innerText.toLowerCase().includes(searchTerm)) {
+                    book.style.display = 'block';
+                } else {
+                    book.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-<script>
-    const searchInput = document.getElementById('searchInput');
-    const books = document.querySelectorAll('.books');
-
-    searchInput.addEventListener('input', function () {
-        const searchTerm = searchInput.value.trim().toLowerCase(); // Haal de zoekterm op en converteer naar lowercase
-
-        books.forEach(function (book) {
-			if (book.innerText.toLowerCase().includes(searchTerm)) {
-				book.style.display = 'block';
-			} else {
-				book.style.display = 'none';
-			}
-		});
-    });
-</script>

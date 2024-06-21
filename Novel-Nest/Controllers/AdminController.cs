@@ -49,7 +49,6 @@ namespace Novel_Nest.Controllers
 			return View(model);
 		}
 
-
 		[HttpPost]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {
@@ -65,7 +64,7 @@ namespace Novel_Nest.Controllers
         }
 
         [HttpPost]
-		public async Task<IActionResult> EditBook(BookDTO book)
+		public async Task<IActionResult> EditBook(BookModel book)
 		{
             if (HttpContext.Session.GetString("UserRole") != "Admin")
             {
@@ -98,7 +97,6 @@ namespace Novel_Nest.Controllers
             return RedirectToAction("ManageBooks");
         }
 
-
         public async Task<IActionResult> AddDefaultCategories()
 		{
 			var defaultCategories = await _adminService.GetDefaultCategoriesAsync();
@@ -110,7 +108,7 @@ namespace Novel_Nest.Controllers
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> AddDefaultCategory(CategoryDTO category)
+        public async Task<IActionResult> AddDefaultCategory(CategoryModel category)
         {
             if (ModelState.IsValid)
             { 
@@ -139,7 +137,7 @@ namespace Novel_Nest.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> EditDefaultCategory(CategoryDTO category)
+		public async Task<IActionResult> EditDefaultCategory(CategoryModel category)
 		{
 			var success = await _adminService.EditDefaultCategoryAsync(category);
 			if (success)

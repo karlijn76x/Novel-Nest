@@ -21,7 +21,7 @@ namespace Novel_Nest_Core
             return await _userRepository.AuthenticateUserAsync(email, password);
         }
 
-        public async Task<bool> CreateUserAsync(UserModelDTO user)
+        public async Task<bool> CreateUserAsync(UserModel user)
         {
             return await _userRepository.CreateUserAsync(user);
         }

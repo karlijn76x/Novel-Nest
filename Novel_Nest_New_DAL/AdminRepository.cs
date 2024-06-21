@@ -16,9 +16,9 @@ namespace Novel_Nest_DAL
             _connectionString = connectionString;
         }
 
-        public async Task<List<CategoryDTO>> GetAllCategoriesFromUsersAsync()
+        public async Task<List<CategoryModel>> GetAllCategoriesFromUsersAsync()
         {
-            var categories = new List<CategoryDTO>();
+            var categories = new List<CategoryModel>();
             try
             {
                 using (var connection = new MySqlConnection(_connectionString))
@@ -34,7 +34,7 @@ namespace Novel_Nest_DAL
                         {
                             while (await reader.ReadAsync())
                             {
-                                categories.Add(new CategoryDTO
+                                categories.Add(new CategoryModel
                                 {
                                     Id = reader.GetInt32("Id"),
                                     Name = reader.GetString("Name"),
@@ -77,9 +77,9 @@ namespace Novel_Nest_DAL
             }
         }
 
-        public async Task<List<BookDTO>> GetAllBooksAsync()
+        public async Task<List<BookModel>> GetAllBooksAsync()
         {
-            var books = new List<BookDTO>();
+            var books = new List<BookModel>();
             try
             {
                 using (var connection = new MySqlConnection(_connectionString))
@@ -96,7 +96,7 @@ namespace Novel_Nest_DAL
                         {
                             while (await reader.ReadAsync())
                             {
-                                books.Add(new BookDTO
+                                books.Add(new BookModel
                                 {
                                     Id = reader.GetInt32("Id"),
                                     Title = reader.GetString("Title"),
@@ -117,7 +117,7 @@ namespace Novel_Nest_DAL
             return books;
         }
 
-        public async Task<bool> EditBookAsync(BookDTO book)
+        public async Task<bool> EditBookAsync(BookModel book)
         {
             try
             {
@@ -174,7 +174,7 @@ namespace Novel_Nest_DAL
             }
         }
 
-        public async Task<bool> AddDefaultCategoryAsync(CategoryDTO category)
+        public async Task<bool> AddDefaultCategoryAsync(CategoryModel category)
         {
             try
             {
@@ -199,9 +199,9 @@ namespace Novel_Nest_DAL
             }
         }
 
-        public async Task<List<CategoryDTO>> GetDefaultCategoriesAsync()
+        public async Task<List<CategoryModel>> GetDefaultCategoriesAsync()
         {
-            var categories = new List<CategoryDTO>();
+            var categories = new List<CategoryModel>();
             try
             {
                 using (var connection = new MySqlConnection(_connectionString))
@@ -217,7 +217,7 @@ namespace Novel_Nest_DAL
                         {
                             while (await reader.ReadAsync())
                             {
-                                categories.Add(new CategoryDTO
+                                categories.Add(new CategoryModel
                                 {
                                     Id = reader.GetInt32("Id"),
                                     Name = reader.GetString("Name"),
@@ -235,7 +235,7 @@ namespace Novel_Nest_DAL
             return categories;
         }
 
-        public async Task<bool> EditDefaultCategoryAsync(CategoryDTO category)
+        public async Task<bool> EditDefaultCategoryAsync(CategoryModel category)
         {
             try
             {
