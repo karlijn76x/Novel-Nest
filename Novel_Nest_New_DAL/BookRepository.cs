@@ -342,7 +342,6 @@ namespace Novel_Nest_DAL
 			return null;
 		}
 
-
 		public async Task<bool> ReviewNightstandBookAsync(NightstandBookDTO nightstandBook)
 		{
 			try

@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 public class UserModelDTO
 {
 	public int UserId { get; set; }

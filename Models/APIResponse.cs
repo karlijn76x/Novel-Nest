@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    //Wordt momenteel niet gebruikt, dit is voor als er een externe API wordt gebruikt om boeken toe te voegen of op te zoeken.
     public class OpenLibrarySearchResponse
     {
         public int NumFound { get; set; }

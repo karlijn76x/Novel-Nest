@@ -59,10 +59,7 @@ namespace Novel_Nest_Core
         {
             return await _bookRepository.IsBookInNightstandAsync(bookId);
         }
-        //public async Task<bool> AddBookFromApiAsync(BookDTO book)
-        //{
-        //    return await _bookRepository.AddBookFromApiAsync(book);
-        //}
+     
         public async Task<NightstandBookDTO> GetNightstandBookByUserIdAndBookId(int userId, int bookId)
         {
 			return await _bookRepository.GetNightstandBookByUserIdAndBookId(userId, bookId);
